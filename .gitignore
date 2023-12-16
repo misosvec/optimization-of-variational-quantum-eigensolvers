@@ -1,7 +1,8 @@
 
 *.pdf
 .DS_Store
-docs/.DS_Store
+thesis/src/out/*
+thesis/src/attachments/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

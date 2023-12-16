@@ -28,11 +28,8 @@
 {
   \leavevmode%
   \hbox{%
-  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
-    \usebeamerfont{author in head/foot}\insertshortauthor
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
-    \usebeamerfont{title in head/foot}\insertshorttitle
+  \begin{beamercolorbox}[wd=.9\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshorttitle
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}%
     \insertframenumber{} /\inserttotalframenumber\hspace*{1ex}
@@ -88,7 +85,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Bit vs. kvantový bit}
+	\frametitle{Bit vs. qubit}
 	\begin{columns}[t]
 		\begin{column}{.5\textwidth}
 			\centering
@@ -111,7 +108,7 @@
 			\begin{itemize}
 				\item najmenšia jednotka informácie v kvantovom počítači
 				\item môže byť v stave $\ket{0}$, $\ket{1}$ alebo v akomkoľvek stave, ktorý je lineárnou kombináciou dvoch stavov s komplexnými koeficientami
-				\item stav sa zmení počas merania na jeden z dvoch stavov $\ket{0}$ alebo $\ket{1}$
+				\item stav sa po meraní zmení na jeden z dvoch stavov $\ket{0}$ alebo $\ket{1}$
 				\item nemôžeme kopírovať
 				\item lineárna algebra 
 				      
@@ -127,7 +124,7 @@
 \begin{frame}
 	\frametitle{Reprezentácia qubitov}
 	\begin{itemize}
-		\item vektory, matice
+		\item vektory
 		\item Blochova sféra
 		\item $\ket{\psi} = \begin{pmatrix}
 		      \alpha \\
@@ -253,6 +250,7 @@
 								
 				% hadamard gate matrix
 				\begin{column}{.5\textwidth}
+					\centering
 					$\frac{1}{\sqrt{2}}\begin{pmatrix}
 					1 & 1\\
 					1 & -1\\
@@ -323,7 +321,7 @@
 	\begin{itemize}
 		\item stav jedného qubitu je závislý na stave iného qubitu
 		\item ľubovoľná vzdialenosť 
-		\item $\frac{\ket{00} + \ket{11}}{\sqrt{2}}$		
+		% \item $\frac{\ket{00} + \ket{11}}{\sqrt{2}}$		
 	\end{itemize}
 \end{frame}
 
@@ -363,7 +361,7 @@
 	Príprava kvantového stavu
 	\begin{itemize}
 		\item budeme spúšťať VQE a hľadať najjednoduchšiu prípravu stavu vedúcu k výsledku
-		\item pracujeme s knižnicu Qiskit (Quantum Information Science Kit)
+		\item pracujeme s knižnicou Qiskit (Quantum Information Science Kit)
 		      \begin{itemize}
 		      	\item open source Python knižnica vyvíjaná najmä spoločnosťou IBM
 		      	\item používame najmä simulátor, skúsime aj skutočný kvantový počítač
