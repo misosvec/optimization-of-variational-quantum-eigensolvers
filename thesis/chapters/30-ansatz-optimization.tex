@@ -1,0 +1,21 @@
+\chapter{Ansatz optimization}\label{ch:ansatz}
+In this chapter, we take a closer look at the ansatz optimization problem. We start by introducing the ansatz optimization problem. We then discuss the different types of ansatzes. Finally, we discuss the different optimization methods.
+\section{Our problem}
+The goal of this thesis is to optimize the ansatz (parametrized quantum circuit) for a given quantum problem. We want to find the simplest ansatz in terms of circuit depth and number of used gates. Lots of used gates and high circuit depth can bring a higher amount of noise and errors. Input for the VQE algorithm is ansatz and a Hamiltonian (a function that describes the behavior of a physical system). The VQE is a hybrid algorithm, but this thesis is more focused on that quantum part.
+
+We do not aim to create ansatz for any general problem. We will be working with a specific problem. We are considering a molecule of lithium hydride (LiH). To find the ground state energy of this molecule, we will use 8 qubits. We will map the Hamiltonian of that molecule to 8 qubits. We will then use the VQE algorithm to find the ground state energy of the molecule. The VQE algorithm requires an ansatz. We will optimize the ansatz for this specific problem. 
+
+The goal of the given homework was to compare our work with different solutions that already exist. To be honest, I had difficulties finding a similar work. We are considering a specific molecule with a specific amount of qubits, therefore, it is not easy to find similar work.
+
+I found a few related articles \cite{linkedin, medium, innostation}. They just show how things work, but they do not address ansatz optimization. Despite that, they can be a good resource for learning purposes.
+
+Other than that, there may be some other scientific articles that are way above our thesis. Also, at this point, I am not eligible to understand that. It requires extensive knowledge of physics.
+
+\section{Quantum circuits}
+\section{Parametrized quantum circuits}
+\section{Hardware efficient ansatz}
+\section{Linear entanglement}
+\section{Cyclic entanglement}
+\section{Full entanglement}
+
+

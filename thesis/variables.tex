@@ -17,23 +17,19 @@
 \consultantfalse{} % no consultant
 
 \newif\iflogoFMFI{}
-\logoFMFItrue{} % display FMFI logo on the cover and the title page
-%\logoFMFIfalse{} % no logo
+% \logoFMFItrue{} % display the FMFI logo on the cover and the title page
+\logoFMFIfalse{} % no logo
 
 % The year in which you plan to turn the thesis in.
-\newcommand{\thesisyear}{2022}
+\newcommand{\thesisyear}{2024}
 
 % Tip - use the `\\` to split a long thesis name nicely.
-\newcommand{\thesisname}{Extraordinarily Long Example Name \\ of My Awesome Project}
+\newcommand{\thesisname}{Optimization of Variational Quantum Eigensolvers}
 
 % If you are writing a master's thesis, don't forget to add Bc. here.
-\newcommand{\thesisauthor}{Adam~Fiktívny}
+\newcommand{\thesisauthor}{Michal~Švec}
 
-\newcommand{\thesissupervisor}{doc.~RNDr.~Boris~Fiktívny,~PhD.}
-
-\ifconsultant{}
-    \newcommand{\thesisconsultant}{doc.~RNDr.~Cyril~Fiktívny,~PhD.}
-\fi
+\newcommand{\thesissupervisor}{doc.~RNDr.~Martin~Plesch,~PhD.}
 
 \newcommand{\thesisacknowledgments}{
     You can thank anyone who helped you with the thesis here (e.g.\ your supervisor).
@@ -53,9 +49,11 @@
 
 \newcommand{\thesischapters}{
     \input chapters/00-introduction.tex
-    \input chapters/10-terminology.tex
-    \input chapters/20-algorithms.tex
-    \input chapters/30-results.tex
+    \input chapters/10-preliminaries.tex
+    \input chapters/20-variational-quantum-eigensolver.tex
+    \input chapters/30-qiskit.tex
+    \input chapters/30-ansatz-optimization.tex
+    \input chapters/40-results.tex
     \input chapters/90-conclusion.tex
 }
 
@@ -64,7 +62,7 @@
     \input chapters/92-appendixB.tex
 }
 
-% Thesis type, field, programme and department are set here automatically, but please check that
+% Thesis type, field, programme, and department are set here automatically, but please check that
 % the values are indeed correct for you.
 % If your supervisor works at FMFI, set the \thesisdepartment to the supervisor's department (this
 % one should also be present in the thesis assignment in AIS). Otherwise, keep the Department of
