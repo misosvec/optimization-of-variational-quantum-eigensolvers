@@ -4,7 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{mathtools}
 \usepackage{mathrsfs}
-\usepackage{commath}
+% \usepackage{commath} buggy library that broke the look of matrices
 \usepackage{bm}
 
 \usepackage{subcaption}
@@ -62,4 +62,27 @@
 % Add your packages and custom commands here.
 \newcommand{\bra}[1]{\langle#1\rvert} % Bra
 \newcommand{\ket}[1]{\lvert#1\rangle} % Ket
-\newcommand{\braket}[2]{\langle#1\vert#2\rangle} % Bra-ket
+\newcommand{\braket}[3]{\langle#1\vert#2\rangle} % Bra-ket
+\newcommand{\qubitRotation}[3]{
+    \begin{figure}[htb!]
+        \centering
+        \begin{minipage}{0.4\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{#1}
+            \vfill
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.15\linewidth}
+            \centering
+            $\implies$
+            \vfill
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.4\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{#2}
+            \vfill
+        \end{minipage}
+        \caption{#3}
+    \end{figure}
+}
