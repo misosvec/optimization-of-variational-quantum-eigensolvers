@@ -1,10 +1,34 @@
 \chapter{Variational quantum eigensolver}\label{ch:vqe}
-At first glance, the term variational quantum eigensolver may seem complicated and it does not say anything to people outside of quantum physics. Thus, the goal of this chapter is to make clear what the variational quantum eigensolver actually is and why it is termed as it is. For the rest of this thesis, we will use the abbreviation VQE.\\
-\textcolor{red}{TODO: consider including the following points:\\ eigenvalue, eigenvectors \\ why do we compute that on a quantum computer when a standard computer can also compute eigenvalues and eigenvectors in a polynomial time? }
+At first glance, the term variational quantum eigensolver may seem complicated and it does not say anything to people outside of quantum computing. Thus, the goal of this chapter is to make clear what the variational quantum eigensolver actually is and why it is termed as it is. For the rest of this thesis, we will use the abbreviation VQE.\\
+
+\todo{why is this alg. good for NISQ}
+\todo{move it to a better place}
+Applications of VQE are not limited to finding the ground state energy of a molecule. It can be used for any problem that can be mapped to Hamiltonian expression. For instance, in the area of finance, it can be a portfolio optimization problem. 
 
 \section{Variational principle}
+In quantum mechanics, there is a famous Schrödinger equation ($\hat{H} \Psi = E \Psi$)\todo{maybe explain what the individual terms are}, which is a partial differential equation that describes how the quantum state of a physical system behaves. Solving this equation analytically \todo{maybe explain what does analytically mean?} is really hard, in most cases, we must resort to computers to determine the solutions. This imposes very high time and memory requirements on computers, therefore we rely on the variational method which gives us an approximation of the ground state energy of a quantum system and enables us to solve the problem much more efficiently \cite{Thijssen_2007}.
+
+From the computer science standpoint, it is enough to know that it is an approximation method to find the ground state energy of a quantum system.
+\section{Quantum}
+The VQE is a hybrid algorithm. Hybrid in the sense that part of the algorithm runs on a quantum computer and part of the algorithm runs on a classical computer. \todo{picture} 
+
+\todo{ quantum phase estimation algorithm that solves for eigenvalues, but it does now work well on noisy computers}
 \section{Eigensolver}
+\todo{should I include eigenvalue and eigenvectors into the math part or should I take this knowledge for granted}
+For those versed in linear algebra, the term eigensolver may indicate something to you. This algorithm solves for eigenvalues of a given Hamiltonian. Specifically, we are interested in the lowest eigenvalue because that eigenvalue corresponds to the ground state energy.
+
+Now, you may be asking why we need a quantum computer to solve for eigenvalues when a classical computer can do it in a polynomial time. This is true, but if the matrix size is exponentially large, the problem becomes untractable for classical computers and here a quantum computer comes into play. Suppose that we have a matrix of size $2^n \times 2^n$. We can encode the matrix into a quantum computer using $n$ qubits, therefore the number of qubits grows $O(poly(n))$. Other things that need to be considered are the number of Pauli operators in the Hamiltonian expression and the number of gates in the quantum circuit. In case all these resources, such as memory, number of gates, and number of measurements grow polynomially, we are getting an exponential speedup.
+\ques{is it a good idea to cite forum posts? https://quantumcomputing.stackexchange.com/questions/24343/what-exactly-makes-vqe-faster-than-classical-optimization and https://quantumcomputing.stackexchange.com/questions/12112/whats-the-point-of-vqe-if-classical-computers-can-solve-for-eigenvalues-easily} 
+\todo{v tomto clanku je nieco o eigenvalues a eigensolver https://arxiv.org/abs/2106.10522}
+
 \section{Hamiltonian}
+\todo{Pauli strings}
 \textcolor{red}{TODO: different forms, matrix, etc...}
 
 \section{Ground state energy}
+Finding the ground state of a molecule is the popular usage of VQE but not the only one.
+
+
+
+
+We are talking about an algorithm, it is important to clearly define what is the input and what is the output of the algorithm. The input for the VQE algorithm is a Hamiltonian and an ansatz. The Hamiltonian is a function that describes the behavior of a physical system. The ansatz is a parametrized quantum circuit. The output of the VQE algorithm is the ground state energy of the given Hamiltonian.
