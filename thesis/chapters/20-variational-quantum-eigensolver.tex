@@ -15,20 +15,29 @@ The VQE is a hybrid algorithm. Hybrid in the sense that part of the algorithm ru
 \todo{ quantum phase estimation algorithm that solves for eigenvalues, but it does now work well on noisy computers}
 \section{Eigensolver}
 \todo{should I include eigenvalue and eigenvectors into the math part or should I take this knowledge for granted}
-For those versed in linear algebra, the term eigensolver may indicate something to you. This algorithm solves for eigenvalues of a given Hamiltonian. Specifically, we are interested in the lowest eigenvalue because that eigenvalue corresponds to the ground state energy.
-
-Now, you may be asking why we need a quantum computer to solve for eigenvalues when a classical computer can do it in a polynomial time. This is true, but if the matrix size is exponentially large, the problem becomes untractable for classical computers and here a quantum computer comes into play. Suppose that we have a matrix of size $2^n \times 2^n$. We can encode the matrix into a quantum computer using $n$ qubits, therefore the number of qubits grows $O(poly(n))$. Other things that need to be considered are the number of Pauli operators in the Hamiltonian expression and the number of gates in the quantum circuit. In case all these resources, such as memory, number of gates, and number of measurements grow polynomially, we are getting an exponential speedup.
+For those versed in linear algebra, the term eigensolver may indicate something to you. This algorithm solves for eigenvalues of a given Hamiltonian. Specifically, we are interested in the lowest eigenvalue because that eigenvalue corresponds to the ground state energy. Now, you may be asking why we need a quantum computer to solve for eigenvalues when a classical computer can do it in a polynomial time. This is true, but if the matrix size is exponentially large, the problem becomes untractable for classical computers and here a quantum computer comes into play. Suppose that we have a matrix of size $2^n \times 2^n$. We can encode the matrix into a quantum computer using $n$ qubits, therefore the number of qubits grows $O(poly(n))$. Other things that need to be considered are the number of Pauli operators in the Hamiltonian expression and the number of gates in the quantum circuit. In case all these resources, such as memory, number of gates, and number of measurements grow polynomially, we are getting an exponential speedup.
 \ques{is it a good idea to cite forum posts? https://quantumcomputing.stackexchange.com/questions/24343/what-exactly-makes-vqe-faster-than-classical-optimization and https://quantumcomputing.stackexchange.com/questions/12112/whats-the-point-of-vqe-if-classical-computers-can-solve-for-eigenvalues-easily} 
 \todo{v tomto clanku je nieco o eigenvalues a eigensolver https://arxiv.org/abs/2106.10522}
 
 \section{Hamiltonian}
+\todo{consider moving this section to the preliminaries chapter}
 \todo{Pauli strings}
 \textcolor{red}{TODO: different forms, matrix, etc...}
 
 \section{Ground state energy}
+\todo{consider moving this section to the preliminaries chapter}
+Before getting into ground state energy let's revisit an atom first. Atoms are the basic building blocks of
+matter. They are the smallest units of an element that can combine with other elements. Atoms are composed of 3 subatomic particles, protons, neutrons, and electrons. Protons and neutrons reside in the tiny nucleus of the atom. As their names suggest, protons have a positive electrical charge, while neutrons are electrically neutral. The vast majority of an atom's volume is the space in which the electrons reside. Electrons have a negative electrical charge. The electrons are attracted to the protons in the nucleus by the electrostatic force that exists between particles of opposite electrical charge. Every atom has an equal number of electrons
+and protons, so atoms have no net electrical charge.
+
+
+Electrons are grouped into orbitals. Each orbital has a characteristic shape and energy. An electron can ''jump'' from one allowed orbit to another by either absorbing or emitting photons whose energy corresponds exactly to the energy difference between the two orbits. The electron must absorb energy in order to move to a higher-energy state. Conversely, energy is emitted when the electron jumps to a lower-energy state. The lowest-energy state is called the
+ground state of the atom. When the electron is in a higher-energy state the atom is said to be in an excited state \cite{chemistry}.
+\todo{picture of transition from the ground state to excited state and then back to the ground state}
+\todo{picture of energy levels}
+
+
 Finding the ground state of a molecule is the popular usage of VQE but not the only one.
-
-
 
 
 We are talking about an algorithm, it is important to clearly define what is the input and what is the output of the algorithm. The input for the VQE algorithm is a Hamiltonian and an ansatz. The Hamiltonian is a function that describes the behavior of a physical system. The ansatz is a parametrized quantum circuit. The output of the VQE algorithm is the ground state energy of the given Hamiltonian.
