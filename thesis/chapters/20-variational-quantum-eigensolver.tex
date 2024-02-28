@@ -41,3 +41,7 @@ Finding the ground state of a molecule is the popular usage of VQE but not the o
 
 
 We are talking about an algorithm, it is important to clearly define what is the input and what is the output of the algorithm. The input for the VQE algorithm is a Hamiltonian and an ansatz. The Hamiltonian is a function that describes the behavior of a physical system. The ansatz is a parametrized quantum circuit. The output of the VQE algorithm is the ground state energy of the given Hamiltonian.
+
+
+\section{Optimizers}
+Optimizers play an important role in VQE algorithm. We give them a cost function and a set of ansatz parameters (angles). Based on this, they try to find the best set of parameters that can lead to a minimal value of the cost function. We can divide optimization algorithms primarily into two categories. Gradient-based and gradient-free.

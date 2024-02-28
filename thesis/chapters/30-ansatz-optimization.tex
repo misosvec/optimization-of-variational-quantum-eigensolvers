@@ -1,5 +1,24 @@
-\chapter{Ansatz optimization}\label{ch:ansatz}
-In this chapter, we take a closer look at the ansatz optimization problem. We start by introducing the ansatz optimization problem. We then discuss the different types of ansatzes. Finally, we discuss the different optimization methods.
+\chapter{Ansatz}\label{ch:ansatz}
+Before we delve into details let us preface this section with an etymology of the word ansatz. In physics and mathematics, an ansatz (plural ansätze) is a German word that means an educated guess, an initial point, or an additional assumption made to help solve a problem, and which may later be verified to be part of the solution by its results \cite{ansatz_etymology}.
+
+In the context of quantum computing, an ansatz is a parametrized quantum circuit,  a quantum circuit comprised of quantum gates and some of them may be parametrized. Parametrized quantum circuits are often used in variational algorithms where the parameters are being somehow optimized.
+
+Ansatzes can have more properties. Let us describe them.
+\section{Expressibility}
+The notion of expressibility can be very helpful to get an understanding what is the role of the ansatz. This metric says how much of the Hilbert space can be covered by our ansatz. Below is a picture worth a thousand words.
+
+\qubitRotation{expressibility-hrzrx-circuit.png}{expressibility-hrzrx-qubit.png}{1000 points sampled uniformly randomly}
+Provided we know that our solution lies in the real part of Hilbert space, we can just use a simpler ansatz that covers only the real part of Hilbert space. Other gates would just introduce more noise to our circuit and the more parameters we have, the more difficult it is to optimize them.
+\qubitRotation{expressibility-ry-circuit.png}{expressibility-ry-qubit.png}{200 points sampled uniformly randomly}
+
+\section{Types of ansatzes}
+\subsection{Hardware efficient ansatz (HEA)}
+\subsubsection{Linear entanglement}
+\subsubsection{Cyclic entanglement}
+\subsubsection{Full entanglement}
+\subsection{United Couple Cluster (UCC)}
+
+% In this chapter, we take a closer look at the ansatz optimization problem. We start by introducing the ansatz optimization problem. We then discuss the different types of ansatzes. Finally, we discuss the different optimization methods.
 \section{Our problem}
 The goal of this thesis is to optimize the ansatz (parametrized quantum circuit) for a given quantum problem. We want to find the simplest ansatz in terms of circuit depth and number of used gates. Lots of used gates and high circuit depth can bring a higher amount of noise and errors. Input for the VQE algorithm is ansatz and a Hamiltonian (a function that describes the behavior of a physical system). The VQE is a hybrid algorithm, but this thesis is more focused on that quantum part.
 
@@ -7,15 +26,8 @@ We do not aim to create ansatz for any general problem. We will be working with 
 
 The goal of the given homework was to compare our work with different solutions that already exist. To be honest, I had difficulties finding a similar work. We are considering a specific molecule with a specific amount of qubits, therefore, it is not easy to find similar work.
 
-I found a few related articles \cite{linkedin, medium, innostation}. They just show how things work, but they do not address ansatz optimization. Despite that, they can be a good resource for learning purposes.
+% I found a few related articles \cite{linkedin, medium, innostation}. They just show how things work, but they do not address ansatz optimization. Despite that, they can be a good resource for learning purposes.
 
 Other than that, there may be some other scientific articles that are way above our thesis. Also, at this point, I am not eligible to understand that. It requires extensive knowledge of physics.
 
 \section{Quantum circuits}
-\section{Parametrized quantum circuits}
-\section{Hardware efficient ansatz}
-\section{Linear entanglement}
-\section{Cyclic entanglement}
-\section{Full entanglement}
-
-
