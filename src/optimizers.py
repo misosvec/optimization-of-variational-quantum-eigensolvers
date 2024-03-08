@@ -18,14 +18,13 @@ def init_optimizers(maxiter: int) -> List[Optimizer]:
     powell = POWELL(maxiter=maxiter)
     slsqp = SLSQP(maxiter=maxiter)
     spsa = SPSA(maxiter=maxiter)
-    qnspsa = QNSPSA(QNSPSA.get_fidelity(
-        circuit=QuantumCircuit(0), sampler=Sampler()), maxiter=maxiter)
+    qnspsa = None # this optimizer is dependent on a provided circuit, will be instantiated in the benchmark function
     tnc = TNC(maxiter=maxiter)
     umda = UMDA(maxiter=maxiter)
 
     return [(aqdg, type(aqdg).__name__),  # Analytical Quantum Gradient Descent with Epochs
             (nft, type(nft).__name__),  # Nakanishi-Fujii-Todo
-            (qnspsa, type(qnspsa).__name__), # Quantum Natural SPSA 
+            (qnspsa, 'QNSPSA'), # Quantum Natural SPSA 
             (spsa, type(spsa).__name__),# Simultaneous Perturbation Stochastic Approximation
             (cobyla, type(cobyla).__name__),# Constrained Optimization By Linear Approximation
             (nelder_mead, type(nelder_mead).__name__), # Nelder-Mead 
