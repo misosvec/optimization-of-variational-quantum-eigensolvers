@@ -23,6 +23,8 @@
 \usepackage{listings}
 \usepackage{algpseudocode}
 \usepackage{algorithm}
+\usepackage{tabularx} % allows to set full width of table
+\usepackage{makecell}
 \lstset{frame=lines}
 
 \theoremstyle{plain}
@@ -58,12 +60,12 @@
 \newtheorem{conclusion}{Conclusion}
 
 \newcommand{\todo}[1]{\textcolor{red}{TODO {#1}}}
-\newcommand{\ques}[1]{\textcolor{green}{QUESTION: {#1}}}
+\newcommand{\ques}[1]{\textcolor{blue}{QUESTION: {#1}}}
 
 % Add your packages and custom commands here.
 \newcommand{\bra}[1]{\langle#1\rvert} % Bra
 \newcommand{\ket}[1]{\lvert#1\rangle} % Ket
-\newcommand{\braket}[3]{\langle#1\vert#2\rangle} % Bra-ket
+\newcommand{\braket}[2]{\langle#1\vert#2\rangle} % Bra-ket
 \newcommand{\qubitRotation}[3]{
     \begin{figure}[H]
         \centering
