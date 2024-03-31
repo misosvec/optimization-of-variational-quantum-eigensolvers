@@ -1,0 +1,10 @@
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+\markboth{Conclusion}{Conclusion}
+
+
+In this bachelor's thesis, we focused on a variational quantum eigensolver algorithm that was used to find the ground state energy of a hydrogen molecule. However, the performance of VQE depends heavily on a choice of ansatz (parametrized quantum circuit) and optimization algorithm. We created a benchmark whose task is to compare the performance of various ansatzes and optimizers.
+
+The main outcome of our work is that gradient-based optimizers work better than gradient-free optimizers. The gradient-based optimizers either reached very good results or completely failed regardless of the chosen ansatz. We think that such a difference in performance was caused primarily by a fixed number of cost function evaluations. We believe that the performance of those optimizers can be improved by allowing more iterations and tuning the hyperparameters. The results of gradient-free optimizers are more varied. It seems that gradient-free optimizers can get the work done but they are more dependent on the chosen ansatz. The interesting is fact that gradient-free optimizers reach better results with 2-layers, which can mean that the performance of the gradient-free optimizers can decrease with an increasing number of cost function parameters. Overall, we think that a choice of optimizer is more important the the choice of ansatz, at least in ideal conditions where noise and errors are not present.
+
+There are many ways how advance our work. It would be interesting to try our benchmark with a broader set of problems than just a hydrogen molecule and see whether our results can be translated there. Moreover, we could hand-pick some optimizers, delve deeper into their properties and tweak their hyperparameters to get the most out of it. \todo{this needs to be extended and written better}

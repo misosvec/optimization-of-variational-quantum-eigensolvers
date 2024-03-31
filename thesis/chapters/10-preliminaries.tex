@@ -126,7 +126,7 @@ All these vectors and complex numbers may be difficult to understand and image. 
 
 
 In reality, physical qubits can be realized in different ways. There is a plethora of options but the most prominent ones used by leading companies are superconducting qubits and trapped ions (an atom that is not neutral).
-\todo{should I also mention that qubits can not be copied? (no-cloning theorem)}
+\ques{should I also mention that qubits can not be copied? (no-cloning theorem)}
 % As opposed to classical bits, qubits have a few more interesting properties that can be worth mentioning.
 
 \subsubsection{Multiple qubits}
@@ -136,20 +136,41 @@ $$\ket{\psi} = \alpha \ket{00} + \beta \ket{01} + \gamma \ket{10} + \delta \ket{
 This multiqubit ket notation might be confusing. If we have $\ket{100}$, number $100$ is a binary representation of number $4$. The resulting vector will be eight-dimensional ($2^3 = 8$) with number one at the fourth position (indexing starts from zero). Similarly, $\ket{1111}$ will have number one at the fifteenth position.
 \subsection{Measurements}
 Measurement is an operation that enables us to find out the state of a qubit, however, this operation does not work as most of us would expect. When we measure a qubit we get either the result 0, with probability $\lvert \alpha \rvert^2$, or the result 1, with probability $\lvert \beta \rvert^2$ \cite{qc}. Naturally, $\lvert \alpha \rvert^2 + \lvert \alpha \rvert^2 = 1$, since the probabilities must sum to one \cite{qc}. Measurement is a destructive operation, upon first measurement, the state of a qubit is collapsed to either $\ket{0}$ or $\ket{1}$, and any subsequent measurements will yield the same result. We can not recover the original state of a qubit after measurement. There are three types of measurements, with respect to axes:
-\begin{align*}
-&\text{x-axis, we get state }\ket{0} \text{ or }\ket{1}\\
-&\text{y-axis, we get state }\ket{+} \text{ or }\ket{-}\\
-&\text{z-axis, we get state }\ket{-i} \text{ and }\ket{+i}
-\end{align*}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|} 
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Measurement axes}} & \textbf{States}\\
+      \hline
+      x-axis & $\ket{+} \text{ or }\ket{-}$ \\ 
+      \hline
+      y-axis & $\ket{-i} \text{ and }\ket{+i}$ \\ 
+      \hline
+      z-axis & $\ket{0} \text{ or }\ket{1}$ \\ 
+      \hline
+  \end{tabular}
+  \caption{Mesaurements and their respective states}
+  \label{tab:measurements-states}
+\end{table}
 Most (if not all) contemporary quantum computers perform measurements on a computational basis (z-axis). We can also realize measurement on other bases by converting them to computational basis using additional rotation:
-\begin{align*}
-    &\text{x-axis measurement, we apply gate } RY(-\pi/2) \\
-    &\text{y-axis measurement, we apply gate } RX(\pi/2) \\
-    &\text{x-axis measurement, we do not have to do anything \cite{blog}}
-\end{align*}
 
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|} 
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Measurement axes}} & \textbf{Conversion}\\
+      \hline
+      x-axis & we apply gate $RY(-\pi/2)$ \\ 
+      \hline
+      y-axis & we apply gate $RX(\pi/2)$ \\ 
+      \hline
+      z-axis & we do not have to do anything \\ 
+      \hline
+  \end{tabular}
+  \caption{Mesaurements and their conversion to computational basis~\cite{blog}}
+  \label{tab:measurements-conversion}
+\end{table}
 \todo{consider adding the picture that shows the bases}\\
-\todo{consider converting it to a table instead of this centered list}
 
 \subsection{Quantum gates}
 Up until now, we have been covering the properties of qubits and the question of how to manipulate qubits is still unanswered. In this section, we will take a closer look at basic quantum gates and we will visualize the operations to make it more easy to digest. They are the quantum equivalent of classical logic gates.
@@ -274,7 +295,7 @@ Controlled-NOT (CNOT) gate has two input qubits, known as the control qubit and 
 \todo{fix alignment of matrices and gate icon}\\
 \todo{consider improving the layout of all the figures, they occupy too much space, maybe I can add a 3x3 table for X, Y, and Z gates that shows qubit state transition, matrix, and gate notation}
 \subsection{Quantum entanglement}
-Apart from superposition, quantum entanglement is another quantum phenomenon that gives us an advantage over classical computers. When qubits are entangled we mean that thay are somehow bound together and they are dependent. Altering the state of one qubit will immediately alter the state of the other qubit in a predictable way. In the below example, we will demonstrate the most simple entangled state, also known as the Bell state.
+Apart from superposition, quantum entanglement is another quantum phenomenon that gives us an advantage over classical computers. When qubits are entangled we mean that they are somehow bound together and they are dependent. Altering the state of one qubit will immediately alter the state of the other qubit in a predictable way. In the below example, we will demonstrate the most simple entangled state, also known as the Bell state.
 
 \begin{figure}[H]
 \begin{minipage}{.35\textwidth}
@@ -356,25 +377,15 @@ Quantum computers that match these characteristics are called noisy intermediate
 
 
 \section{Ground state energy}
-\todo{consider moving this section to the preliminaries chapter}
 Before getting into ground state energy let's revisit an atom first. Atoms are the basic building blocks of matter. They are the smallest units of an element that can combine with other elements. Atoms are composed of 3 subatomic particles, protons, neutrons, and electrons. Protons and neutrons reside in the tiny nucleus of the atom. As their names suggest, protons have a positive electrical charge, while neutrons are electrically neutral. The vast majority of an atom's volume is the space in which the electrons reside. Electrons have a negative electrical charge. The electrons are attracted to the protons in the nucleus by the electrostatic force that exists between particles of opposite electrical charge. Every atom has an equal number of electrons and protons, so atoms have no net electrical charge.
 
-
-Electrons are grouped into orbitals. Each orbital has a characteristic shape and energy. An electron can ''jump'' from one allowed orbit to another by either absorbing or emitting photons whose energy corresponds exactly to the energy difference between the two orbits. The electron must absorb energy in order to move to a higher-energy state. Conversely, energy is emitted when the electron jumps to a lower-energy state. The lowest-energy state is called the
-ground state of the atom. When the electron is in a higher-energy state the atom is said to be in an excited state \cite{chemistry}.
+Electrons are grouped into orbitals. Each orbital has a characteristic shape and energy. An electron can ''jump'' from one allowed orbit to another by either absorbing or emitting photons whose energy corresponds exactly to the energy difference between the two orbits. The electron must absorb energy in order to move to a higher-energy state. Conversely, energy is emitted when the electron jumps to a lower-energy state. The lowest-energy state is called the ground state of the atom. When the electron is in a higher-energy state the atom is said to be in an excited state \cite{chemistry}. We will measure this energy in a hartree (Ha) units. Hartree is a unit of energy in the atomic units system.~\cite{hartree}
 \todo{picture of transition from the ground state to excited state and then back to the ground state}
 \todo{picture of energy levels}
 
 \section{Hamiltonian}
-For us is enough to know that we do not need to do anything 
-$$H = \sum_{i=1}^{m}c_i\sigma_i \text{, } \sigma_i \in \{I, X, Y, Z\}^{\otimes n}\text{, } c_i \in \mathbb{R} \text{, }$$ 
-where $I$ is an identity matrix and $X$, $Y$, $Z$ are Pauli matrices which we discussed in the section \ref{sec:pauli-matrices}. 
+Hamiltonian defines the total energy of a physical system. Many different forms of Hamiltonians exist in physics and chemistry, but we will not go into details. For us is important that once a Hamiltonian is constructed, it must be translated into operators that can be directly measured on a quantum computer. The representation for quantum computer looks as follows:
+$$\hat{H} = \sum_{i=1}^{m}c_i\sigma_i \text{, } \sigma_i \in \{I, X, Y, Z\}^{\otimes n}\text{, } c_i \in \mathbb{R} \text{, }$$ 
+where $I$ is an identity matrix and $X$, $Y$, $Z$ are Pauli matrices which we discussed in the section \ref{sec:pauli-matrices}.~\cite{fedorov2021vqe}
 
-The Hamiltonian is a Hermitian matrix that describes the behavior of a physical system. The Hamiltonian can be decomposed into a linear combination of Pauli operators. The Pauli operators are a set of 4 matrices that are used to describe the behavior of a quantum system. The Pauli matrices are defined as follows:
-
-
-\todo{matrix vs operator}\\
-\todo{density matrix}\\
-\todo{consider moving this section to the preliminaries chapter}\\
-\todo{Pauli strings}\\
-\todo{different forms, matrix, etc...}
+The Pauli matrices represent measurements. This expression, $c_{1}Z_{0}X_{1}Y_{2}$, means that we measure qubit zero on the z-axis, qubit one on the x-axis, and qubit two on the y-axis and we will multiply the results together with the coefficient $c_{1}$. Sometimes this Hamiltonian representation is referred to as a sum of Pauli strings. The specialty of this representation of Hamiltonian is that it forms a Hermitian matrix and Hermitian matrices have real eigenvalues.

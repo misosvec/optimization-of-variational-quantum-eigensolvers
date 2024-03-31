@@ -46,7 +46,8 @@ Provided we know that our solution lies in the real part of Hilbert space, we ca
 
 
 \section{Trainability}
-Trainability refers to a process of how easy it is to find optimal parameters for our circuit. Circuit with higher amounts of qubits and parameters may exhibit problems with finding the optimal parameters. In the area of quantum circuits, it is mainly caused by the barren plateau problem which we discussed in the previous section.
+Trainability refers to a process of how easy it is to find optimal parameters for our circuit. Circuit with higher amounts of qubits and parameters may exhibit problems with finding the optimal parameters. In the area of quantum circuits, it is mainly caused by the barren plateau (vast planes) problem which we will discuss in the next chapter.
+\todo{maybe make it more detailed}
 
 \section{Circuit depth}
 A circuit depth is a measure that says how many levels of gates we have in our quantum circuit. It is a way to increase a circuit's expressibility but at the same time is a way how to introduce more noise into a circuit. 
@@ -73,7 +74,8 @@ A circuit depth is a measure that says how many levels of gates we have in our q
     \caption{Circuit depth}
 \end{figure}
 \todo{fix sizes of gates and center subcaptions vertically}
-Alternatively, we can say it is the longest path in a circuit. Circuits whose depth $\in O(\log n)$ are said to be shallow. 
+Alternatively, we can say it is the longest path in a circuit. Circuits whose depth $\in O(\log n)$ are said to be shallow.
+\todo{cite that claim}
 
 \section{Types of ansatzes}
 There is a plethora of ansatzes. We will describe the most popular approaches. Broadly we can classify them into two categories: problem inspired and hardware inspired. In addition to that, if ansatz leverages a structure of a particular problem, is said to be problem-specific/problem-derived, otherwise it is problem-agnostic/general. 
@@ -83,11 +85,11 @@ A problem-agnostic ansatz designed with respect to hardware constraints. Minimiz
 
 The structure of HEA consists of layers, each layer consists of rotation gates and entangling gates. In a single layer, we can add multiple levels of rotations, we are not limited to a single gate. The final layer does not contain any entangling gates, only rotation gates.
 
-\todo{maybe cite that article that claims to have trainability guarantees on a HEA}
+\todo{maybe cite that article that claims to have trainability guarantees on a HEA}\\
 \todo{drawbacks, may be very expressive --> difficult to find params}\\
-\todo{create a picture which clearly shows the part of layers and the final rotation gates}
+\todo{create a picture which clearly shows the part of layers and the final rotation gates}\\
 
-The fact whether an ansatz is hardware efficient heavily depends on the hardware we are using. We explain this in the next section.
+The fact whether an ansatz is hardware efficient heavily depends on the hardware we are using. We will explain this in the next section.
 
 \subsubsection{Qubit topology and transpilation}
 \todo{consider to move it somewhere else}
@@ -96,7 +98,7 @@ Now we will take a closer look at IBM hardware. Hopefully, by the end of this se
 
 In order to implement a 2-qubit gate between qubits in a quantum circuit that are not directly connected on a quantum device, one or more swap gates must be inserted into the circuit to move the qubit states around until they are adjacent on the device gate map. Each swap gate typically represents an expensive and noisy operation to perform. Thus, finding the minimum number of swap gates needed to map a circuit onto a given device, is an important step (if not the most important) in the whole execution process.
 
-However, finding the optimal swap mapping is hard. In fact, it is in a class of problems called NP-hard, and is thus prohibitively expensive to compute for all but the smallest quantum devices and input circuits. To get around this, by default Qiskit uses a stochastic heuristic algorithm to compute a good, but not necessarily optimal swap mapping \cite{transpiler}. \ques{is it cited correctly? I took two aforementioned paragraphs from the qiskit docs?}
+However, finding the optimal swap mapping is hard. In fact, it is in a class of problems called NP-hard, and is thus prohibitively expensive to compute for all but the smallest quantum devices and input circuits. To get around this, by default Qiskit uses a stochastic heuristic algorithm to compute a good, but not necessarily optimal swap mapping \cite{transpiler}. \ques{is it cited correctly? I took two aforementioned paragraphs from the Qiskit docs?}
 
 In addition to problems with connectivity, we need to also deal with gates that are not supported by the hardware. Each processor family has a native gate set. By default, the systems in each family only support running the gates and operations in the native gate set. Thus, every gate in the circuit must be translated (by the transpiler) to the elements of this set \cite{native_gates}.
 
@@ -115,31 +117,50 @@ This process is called circuit transpilation and fortunately, it is handled auto
 In contrast to HEA, this type of ansatz does not take into account any hardware constraints. It is a chemistry-inspired ansatz proposed for finding a ground state energy of molecules. Despite it being chemistry-inspired, it is still a problem-agnostic ansatz. This seems all good but it suffers from a major drawback. The circuit depth of UCC ansatz grows $O(n^4)$ where $n$ is a number of qubits \cite{ucc_ansatz}. For larger problems and current NISQ devices, this is not feasible due to noise and decoherence, although there are some research endeavors to mitigate this problem.
   
 \subsection{Popular ansatzes}
+
 \subsubsection{Full entanglement}
 This ansatz entangles each qubit with every other qubit, therefore we hardly can call this ansatz hardware efficient.
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{full-ansatz.png}
     \caption{Ansatz with full entanglement, 2 layers, RY rotation gates}
 \end{figure}
+
 \subsubsection{Linear entanglement}
 Each adjacent pair of qubits is entangled. 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{linear-ansatz.png}
     \caption{Ansatz with linear entanglement, 2 layers, RY rotation gates}
 \end{figure}
+
+\subsubsection{Reverse linear entanglement}
+Same as linear but in reversed order. Provided the entangling gates are CNOT, this ansatz has the same unitary as full entanglement~\cite{twolocal}. 
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{reverse-linear-ansatz.png}
+    \caption{Ansatz with reverse linear entanglement, 2 layers, RY rotation gates}
+\end{figure}
+
 \subsubsection{Pairwise entanglement}
-\todo{clearly explain what is the difference between linear and pairwise entanglement because they look very similar}
+Entanglement consists of two ''levels'' where qubit $i$ is entangled with qubit $i+1$ for all even values of $i$, and then a second level where qubit $i$ is entangled with qubit $i+1$ for all odd values of $i$~\cite{twolocal}. 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{pairwise-ansatz.png}
     \caption{Ansatz with pairwise entanglement, 2 layers, RY rotation gates}
 \end{figure}
+
 \subsubsection{Circular entanglement}
-The same as linear but in addition, the last qubit is entangled with the first qubit. For instance, if physical qubits are arranged in a circle, this is easy to implement.
+The same as linear but in addition, the last qubit is entangled with the first qubit. In case physical qubits are arranged in a circle, this is easy to implement.
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{circular-ansatz.png}
     \caption{Ansatz with circular entanglement, 2 layers, RY rotation gates}
 \end{figure}
-\todo{consider adding SCA (shifted circular alternating) and reverse linear}
+
+\subsubsection{Shifted circular alternating (SCA) entanglement}
+It consists of circular entanglement where the ''long'' entanglement connecting the first with the last qubit is shifted by one each block. Furthermore, the role of control and target qubits are swapped every block (therefore alternating)~\cite{twolocal}.
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{circular-ansatz.png}
+    \caption{Ansatz with shifted circular alternating entanglement, 2 layers, RY rotation gates}
+\end{figure}
+
+\todo{play with scaling of images and make sure all the gates are of the same size...}\\
 
 \subsection{Properties of an ideal ansatz}
 In essence, our main focus is on attaining these characteristics:

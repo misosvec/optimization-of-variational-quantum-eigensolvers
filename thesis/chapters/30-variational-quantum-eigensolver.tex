@@ -24,7 +24,7 @@ As we indicated above, this algorithm solves for eigenvalues of a given Hamilton
 
 Let $H$ be our Hamiltonian, $\Psi$ denotes our ansatz with parameters $\theta$. The goal of the VQE algorithm is to find the best set of parameters $\theta$ that can lead to the minimal value of the cost function. Then we can compute eigenvalues using the following formula 
 \begin{equation} \label{eq:cost-function}
-E = \min\nolimits_{\theta} \frac{\bra{\Psi(\theta)}H\ket{\Psi(\theta)}}{\braket{\Psi(\theta)}{\Psi(\theta)}}\cite{fedorov2021vqe} \text{.}
+E = \min\nolimits_{\theta} \frac{\bra{\Psi(\theta)}\hat{H}\ket{\Psi(\theta)}}{\braket{\Psi(\theta)}{\Psi(\theta)}}\cite{fedorov2021vqe} \text{.}
 \end{equation}
 
 
@@ -44,13 +44,9 @@ An optimizer is an algorithm that takes a function as an input and tries to find
 A useful tool that math offers us is derivates. In this particular case, we use partial derivatives. Partial derivatives are just derivatives of a multivariate function, we always differentiate just by one variable and the other variables we treat as constant. The gradient is a vector of partial derivatives. Suppose we have a multivariate function $f(x_1, x_2, \ldots, x_n)$, then the gradient of this function is defined as follows
 $$\nabla f(x_1, x_2, \ldots, x_n) =  \begin{pmatrix} \frac{\partial f}{\partial x_1} \\ \frac{\partial f}{\partial x_2} \\ \vdots \\ \frac{\partial f}{\partial x_n}\end{pmatrix} \text{.}$$
 The idea of gradient-based algorithms is to leverage the gradient to make a step in the direction of the steepest descent. However, some optimization algorithms go beyond the gradient and also use the Hessian matrix. The Hessian matrix is a square matrix of second-order partial derivatives. This method is called the Newton's method. If the Hessian matrix is expensive to compute and it is approximated, we are talking about the so-called quasi-Newton method. Conversely, algorithms that do not use the gradient are called gradient-free and they use some other methods to make a step in the direction of the steepest descent. Gradient-free algorithms may be useful when the gradient is not available or is expensive to compute.
-\ques{I don't know how deep I should go with the gradient. It is not part of the bachelor computer science computer science study plan. We were told that bachelor's thesis should be written in such a way that a graduate with a bachelor's degree in computer science can understand it. Should I write it formally, as it can be found in a book, or just briefly summarize the idea? Do we want to go into the details of specific algorithms? We have 15 of them and thats quite a lot.}
+\ques{I don't know how deep I should go with the gradient. It is not part of the bachelor computer science computer science study plan. We were told that a bachelor's thesis should be written in such a way that a graduate with a bachelor's degree in computer science can understand it. Should I write it formally, as it can be found in a book, or just briefly summarize the idea? Do we want to go into the details of specific algorithms? We have 15 of them and thats quite a lot.}
 
 
 \subsection{Barren plateau}
-
-
-Simply put, we suffer from a barren plateau problem if we find ourselves on a vast ''plane'' and there is nothing in our surroundings. The vicinity is flat and optimization algorithms can have problems with this and they can become stuck in this plane because they can not find a way how to get out of that. 
-
-\todo{Namiesto stack overflowu pridaj toto}
-\todo{https://quantumcomputing.stackexchange.com/questions/24509/why-do-we-decompose-the-hamiltonian-into-pauli-strings-to-measure-the-expectatio}
+Variational quantum algorithms suffer from a common pitfall in the challenge of parameter optimization, the so-called barren plateau problem. The barren plateau is a result of the phenomenon that gradients of the VQE parameters vanish exponentially. This is driven by a number of qubits, trainability, expressibility and other factors.~\cite{fedorov2021vqe} Simply put, we suffer from a barren plateau problem if we find ourselves on a vast ''plane'' and there is nothing in our surroundings. The vicinity is flat and optimization algorithms can become stuck in this plane because they may have difficulties finding a way how to get out of that. 
+\todo{should I cover this topic in more detail?}

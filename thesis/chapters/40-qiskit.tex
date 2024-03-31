@@ -14,14 +14,13 @@ There are also other alternatives like Cirq (by Google), Pennylane (by Xanadu), 
 
 
 \todo{explain how we can simulate quantum computers on a classical computer}\\
-\\
 \todo{VQE is probably a better place for paragraphs below}
 Before we dive into benchmarking our ansatzes we need to make clear a few terms.
 
 \begin{definition} (Shots) 
     A shot is a single run of a quantum circuit. As we know from the previous chapters, the quantum computation is probabilistic. The results of individual shots can be different. The more shots we run, the more accurate the results are.
 \end{definition}
-
+\todo{This does not make sense including it since we are considering only ideal computations}
 In the below picture, we can see a distribution of measurements when using different numbers of shots. Each one of the states is equally likely. With an increasing number of shots, we can observe that the distribution converges to a uniform distribution.
 
 \begin{figure}[H]
@@ -37,10 +36,3 @@ In the below picture, we can see a distribution of measurements when using diffe
 \begin{definition}(Function evaluation)
     Our cost function is passed to a classical optimizer which tries to determine the best parameters that can lead to minimal value. Function evaluations are a number of how many times the cost function was evaluated. Therefore in a single iteration can optimizer evaluate the cost function multiple times.
 \end{definition}
-
-\todo{HarTree}\\
-\todo{Hyperparameters}\\
-\todo{("fault-tolerant QPUs") FTQC vs NISQ}\\
-\todo{UCC vs HEA https://arxiv.org/pdf/2310.02511.pdf}\\
-\todo{Divide shots into stages}\\
-\todo{commutative hamiltonian}\\
