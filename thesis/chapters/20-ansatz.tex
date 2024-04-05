@@ -3,10 +3,10 @@ Before we delve into details let us preface this section with an etymology of th
 
 In the context of quantum computing, an ansatz is a parametrized quantum circuit,  a quantum circuit comprised of quantum gates and some of them are parametrized. Parametrized quantum circuits are often used in variational algorithms where the parameters are optimized by classical computers.
 
-In the following part, we will discuss the key properties of ansatzes.
+In this chapter, we will discuss the importance of the ansatz, its properties, and types. We will also introduce some popular ansatzes.
 
 \section{Expressibility}
-The notion of expressibility can be very helpful to get an understanding what is the role of the ansatz. This metric says how much of the Hilbert space can be covered by our ansatz. The following pictures should illustrate this concept very well.
+The notion of expressibility can be very helpful to get an understanding what is the role of the ansatz. Expressibility says how much of the Hilbert space can be covered by our ansatz. The following pictures should illustrate this concept very well.
 
 \begin{figure}[H]
         \centering
@@ -41,7 +41,7 @@ Provided we know that our solution lies in the real part of Hilbert space, we ca
     \end{minipage}
     \caption{200 points sampled uniformly randomly}
 \end{figure}
-\todo{make sure that the pictures circuit are of the same size}
+\todo{make sure that the pictures circuit are of the same size}\\
 \todo{should I include how to measure it? KL divergence?}
 
 
@@ -81,12 +81,12 @@ Alternatively, we can say it is the longest path in a circuit. Circuits whose de
 There is a plethora of ansatzes. We will describe the most popular approaches. Broadly we can classify them into two categories: problem inspired and hardware inspired. In addition to that, if ansatz leverages a structure of a particular problem, is said to be problem-specific/problem-derived, otherwise it is problem-agnostic/general. 
 
 \subsection{Hardware efficient ansatz (HEA)}
-A problem-agnostic ansatz designed with respect to hardware constraints. Minimizes the number of circuit depth, the number of gates, and entangling qubits in such a way it can be easily implemented on real hardware and thereby tries to minimize noise and decoherence.
+A problem-agnostic ansatz designed with respect to hardware constraints. Minimizes the number of circuit depth, the number of gates, and entangling qubits in such a way it can be easily implemented on real hardware and thereby tries to minimize error, noise and decoherence.
 
-The structure of HEA consists of layers, each layer consists of rotation gates and entangling gates. In a single layer, we can add multiple levels of rotations, we are not limited to a single gate. The final layer does not contain any entangling gates, only rotation gates.
+The structure of HEA consists of layers, each layer consists of rotation gates and entangling gates. In a single layer, we can add multiple levels of rotations using different gates. The final layer does not contain any entangling gates, only rotation gates.
 
 \todo{maybe cite that article that claims to have trainability guarantees on a HEA}\\
-\todo{drawbacks, may be very expressive --> difficult to find params}\\
+\todo{maybe drawbacks, may be very expressive --> difficult to find params}\\
 \todo{create a picture which clearly shows the part of layers and the final rotation gates}\\
 
 The fact whether an ansatz is hardware efficient heavily depends on the hardware we are using. We will explain this in the next section.
@@ -96,9 +96,9 @@ The fact whether an ansatz is hardware efficient heavily depends on the hardware
 Now we will take a closer look at IBM hardware. Hopefully, by the end of this section, the hardware-efficient ansatz will make more sense. IBM has many quantum computers with various qubit counts, topology, and native gate sets. The qubit topology shows qubit connectivity. When you take a look at the picture of qubit topology below, you may notice that some qubits are not connected and they are far from each other. What happens when we want to apply a gate between two qubits that are not connected? 
 
 
-In order to implement a 2-qubit gate between qubits in a quantum circuit that are not directly connected on a quantum device, one or more swap gates must be inserted into the circuit to move the qubit states around until they are adjacent on the device gate map. Each swap gate typically represents an expensive and noisy operation to perform. Thus, finding the minimum number of swap gates needed to map a circuit onto a given device, is an important step (if not the most important) in the whole execution process.
+In order to implement a 2-qubit gate between qubits in a quantum circuit that are not directly connected on a quantum device, one or more swap gates must be inserted into the circuit to move the qubit states around until they are adjacent on the device gate map. Each swap gate typically represents an expensive and noisy operation to perform. Thus, finding the minimum number of swap gates needed to map a circuit onto a given device, is an important step (if not the most important) in the whole execution process.~\cite{transpiler}
 
-However, finding the optimal swap mapping is hard. In fact, it is in a class of problems called NP-hard, and is thus prohibitively expensive to compute for all but the smallest quantum devices and input circuits. To get around this, by default Qiskit uses a stochastic heuristic algorithm to compute a good, but not necessarily optimal swap mapping \cite{transpiler}. \ques{is it cited correctly? I took two aforementioned paragraphs from the Qiskit docs?}
+However, finding the optimal swap mapping is hard. In fact, it is in a class of problems called NP-hard, and is thus prohibitively expensive to compute for all but the smallest quantum devices and input circuits. To get around this, by default Qiskit uses a stochastic heuristic algorithm to compute a good, but not necessarily optimal swap mapping.~\cite{transpiler} \ques{is it cited correctly? I took two aforementioned paragraphs from the Qiskit docs}
 
 In addition to problems with connectivity, we need to also deal with gates that are not supported by the hardware. Each processor family has a native gate set. By default, the systems in each family only support running the gates and operations in the native gate set. Thus, every gate in the circuit must be translated (by the transpiler) to the elements of this set \cite{native_gates}.
 
@@ -109,7 +109,7 @@ This process is called circuit transpilation and fortunately, it is handled auto
     \caption{Example qubit topology of IBM quantum computers}
 \end{figure}
 
-\todo{etnaglement capability}
+\todo{maybe mention entanglement capability}
 
 % https://pennylane.ai/qml/demos/tutorial_here_comes_the_sun/ moze byt useful
 
