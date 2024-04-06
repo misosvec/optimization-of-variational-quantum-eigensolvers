@@ -93,8 +93,7 @@ The fact whether an ansatz is hardware efficient heavily depends on the hardware
 
 \subsubsection{Qubit topology and transpilation}
 \todo{consider to move it somewhere else}
-Now we will take a closer look at IBM hardware. Hopefully, by the end of this section, the hardware-efficient ansatz will make more sense. IBM has many quantum computers with various qubit counts, topology, and native gate sets. The qubit topology shows qubit connectivity. When you take a look at the picture of qubit topology below, you may notice that some qubits are not connected and they are far from each other. What happens when we want to apply a gate between two qubits that are not connected? 
-
+To enhance the understanding of the hardware-efficient ansatz, we will now explore the specifics of IBM hardware in more detail. IBM has many quantum computers with various qubit counts, topology, and native gate sets. The qubit topology shows qubit connectivity. Upon observation of the qubit topology depicted in Figure \ref{fig:qubit_topology}, it becomes apparent that certain qubits are disconnected and situated far from one another. One might ask how to implement a two-qubit gate between these qubits.
 
 In order to implement a 2-qubit gate between qubits in a quantum circuit that are not directly connected on a quantum device, one or more swap gates must be inserted into the circuit to move the qubit states around until they are adjacent on the device gate map. Each swap gate typically represents an expensive and noisy operation to perform. Thus, finding the minimum number of swap gates needed to map a circuit onto a given device, is an important step (if not the most important) in the whole execution process.~\cite{transpiler}
 
@@ -107,6 +106,7 @@ This process is called circuit transpilation and fortunately, it is handled auto
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{qubit-topology.png}
     \caption{Example qubit topology of IBM quantum computers}
+    \label{fig:qubit_topology}
 \end{figure}
 
 \todo{maybe mention entanglement capability}
@@ -114,7 +114,7 @@ This process is called circuit transpilation and fortunately, it is handled auto
 % https://pennylane.ai/qml/demos/tutorial_here_comes_the_sun/ moze byt useful
 
 \subsection{United Couple Cluster (UCC)}
-In contrast to HEA, this type of ansatz does not take into account any hardware constraints. It is a chemistry-inspired ansatz proposed for finding a ground state energy of molecules. Despite it being chemistry-inspired, it is still a problem-agnostic ansatz. This seems all good but it suffers from a major drawback. The circuit depth of UCC ansatz grows $O(n^4)$ where $n$ is a number of qubits \cite{ucc_ansatz}. For larger problems and current NISQ devices, this is not feasible due to noise and decoherence, although there are some research endeavors to mitigate this problem.
+Unlike HEA, this type of ansatz does not take into account any hardware constraints. It is a chemistry-inspired ansatz proposed for finding a ground state energy of molecules. Despite it being chemistry-inspired, it is still a problem-agnostic ansatz. This seems all good but it suffers from a major drawback. The circuit depth of UCC ansatz grows $O(n^4)$ where $n$ is a number of qubits \cite{ucc_ansatz}. For larger problems and current NISQ devices, this is not feasible due to noise and decoherence, although there are some research endeavors to mitigate this problem.
   
 \subsection{Popular ansatzes}
 

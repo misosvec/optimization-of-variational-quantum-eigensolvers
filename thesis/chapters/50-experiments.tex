@@ -2,7 +2,7 @@
 This chapter covers the most important experiments that we have conducted. Along with that, we provide details on how we proceeded and also some thought processes that influenced our decisions. At the end of this chapter, we present a summary of our results.
 
 \section{Benchmark setup}
-The goal of this thesis is to benchmark the performance of multiple ansatzes and optimizers. Potentially, find some intriguing relationships from data produced by many VQE runs. \todo{this is at odds with the thesis assignment}. The first thing that came to our mind was to take a few optimizers and ansatzes and look how they perform. We did that by plotting an energy convergence graph. We discovered that the performance of VQE highly depends on chosen optimizers. 
+The goal of this thesis is to benchmark the performance of multiple ansatzes and optimizers. Potentially, find some intriguing relationships from data produced by many VQE runs. \todo{this is at odds with the thesis assignment}. The first thing that came to our mind was to take few optimizers and ansatzes and look at how they perform. We did that by plotting an energy convergence graph. We discovered that the performance of VQE highly depends on chosen optimizers. 
 
 \begin{figure}
     \centering
@@ -74,10 +74,10 @@ where coefficients are:
     &c_6 = 0.04509,\qquad  &c_7 = 0.16658,\qquad &c_8 = 0.17511.
 \end{alignat*}
 
-This Hamiltonian can be further simplified to 2 qubits, however, we have retained this form to make the problem a little bit more complex. The ground state of this Hamiltonian is $-1.8671050114542505$, we calculated that using a \textit{NumPyMinimumEigensolver} algorithm provided by Qiskit and we will use this value as a reference value for our experiments.
+This Hamiltonian can be further simplified to 2 qubits, however, we have retained this form to increase the complexity of the problem. The ground state of this Hamiltonian is $-1.8671050114542505$, we calculated that using a \textit{NumPyMinimumEigensolver} algorithm provided by Qiskit and we will use this value as a reference value for our experiments.
 
 \subsubsection{Implementation and data exploration}
-In all the experiments we utilized the Qiskit library, therefore all our code was written in Python programming language. We had to execute VQE many times and it takes a lot of time. Due to Python's global interpreter lock (GIL) that allows the execution of only a single thread at a time, we were forced to use Python's multiprocessing module. To speed up our computations we created multiple processes, each process was responsible for a single optimizer and these processes are automatically distributed to available CPU cores.
+In all the experiments we utilized the Qiskit library, therefore all our code was written in Python programming language. We had to execute VQE many times, and it consumes a significant amount of time. Due to Python's global interpreter lock (GIL) that allows the execution of only a single thread at a time, we were forced to use Python's multiprocessing module. To speed up our computations we created multiple processes, each process was responsible for a single optimizer and these processes are automatically distributed to available CPU cores.
 
 All the data that we collected from VQE runs we saved into a CSV file. This allowed us to later load the data into a Pandas data frame and perform some data exploration. For data exploration, we primarily leveraged the Plotly library which has an easy to use API and creates nice interactive visualizations with few lines of code. However, all the visualizations included in this thesis were created using Seaborn library, which is built on top of Matplotlib.
 
@@ -95,8 +95,7 @@ The first important thing that we have discovered is that it is impossible to re
     \label{fig:ansatz-layers}
 \end{figure}
 
-In Figure \ref{fig:ansatz-layers}, we can see that no matter the optimizer, the probability of reaching a chemical precision is always zero for a 1-layer ansatz. Another very interesting thing is that gradient-based optimizers perform better with 3-layer ansatzes and gradient-free optimizers perform better with 2-layer ansatzes. We believe that this could be due to the number of parameters that need to be optimized. For all the subsequent visualizations, we ditched the 1-layer ansatzes and focused only on 2-layer and 3-layer ansatzes.
-% TODO ditch may not be formal
+In Figure \ref{fig:ansatz-layers}, we can see that no matter the optimizer, the probability of reaching a chemical precision is always zero for a 1-layer ansatz. Another very interesting thing is that gradient-based optimizers perform better with 3-layer ansatzes and gradient-free optimizers perform better with 2-layer ansatzes. We believe that this could be due to the number of parameters that need to be optimized. For all the subsequent visualizations, we decided to disregard 1-layer ansatzes and focused only on 2-layer and 3-layer ansatzes.
 
 \begin{figure}
     \centering
@@ -117,6 +116,6 @@ The figure above can seem a bit unclear due to the amount of overlapping data po
 
 If we look at the number of cost function evaluations, we can deduce some guesses why some of the algorithms do not perform well. The straight lines that we can see on \textit{NFT}, \textit{QNSPSA}, \textit{SPSA}, \textit{COBYLA}, \textit{ADAM}, and \textit{AMSGRAD} mean that these optimizers have a fixed number of cost function evaluations. It seems that a fixed number of cost function evaluations can have a limiting impact on the optimizers. Multiple optimizers that have a smaller number of cost function evaluations are not very likely to reach a chemical precision.
 
-However, we can not generalize that, \textit{L\_BFGS\_B} and \textit{SLSQP} reached very good results despite the lower number of cost function evaluations. On the other hand, \textit{Gradient Descent} and \textit{TNC} algorithms do not work at all even though the number of cost function evaluations is not so small. The \textit{Conjugate Gradient} has the best probability overall but it costs us a lot of cost function evaluations. Strikingly, this algorithm uses the same principle as an ordinary \textit{Gradient Descent} but to make a decision it uses past decisions.
+However, we cannot generalize that, \textit{L\_BFGS\_B} and \textit{SLSQP} reached very good results despite the lower number of cost function evaluations. On the other hand, \textit{Gradient Descent} and \textit{TNC} algorithms do not work at all even though the number of cost function evaluations is not so small. The \textit{Conjugate Gradient} has the best probability overall, however, it necessitates a considerable number of cost function evaluations. Strikingly, this algorithm follows the same principle as an ordinary \textit{Gradient Descent} but incorporates past decisions in its decision-making process.
 
 As clear winners seem \textit{L\_BFGS\_B} and \textit{SLSQP}, both of them are quasi-Newton methods. They have a very high probability of reaching a chemical precision, a smaller number of cost function evaluations and they were able to reach a chemical precision with all tested ansatzes without any significant difference in results. Nevertheless, the best optimizer can vary from the situation, sometimes we can strive to minimize the number of cost function evaluations since at the end of the day it is what we pay for. We believe that many of the optimizers could perform better if we tuned their hyperparameters. Especially for the optimizers with a fixed number of cost function evaluations, increasing the number of iterations could help.

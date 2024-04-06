@@ -1,5 +1,5 @@
 \chapter{Variational quantum eigensolver}\label{ch:vqe}
-At first glance, the term variational quantum eigensolver may seem complicated and it does not say anything to people outside of quantum computing. Thus, the goal of this chapter is to make clear what the variational quantum eigensolver actually is and why it is termed as it is. For the rest of this thesis, we will use the abbreviation VQE.
+At first glance, the term variational quantum eigensolver may seem complicated and it does not say anything to people outside of quantum computing. Thus, the objective of this chapter is to provide a clear explanation of the variational quantum eigensolver and clarify why it is termed as it is. For the rest of this thesis, we will use the abbreviation VQE.
 
 The VQE is a hybrid algorithm that attempts to find eigenvalues of Hamiltonian. The term ''hybrid'' refers to a scenario where part of the algorithm runs on a quantum computer and part of the algorithm runs on a classical computer.
 
@@ -32,8 +32,7 @@ One might question, why do we need a quantum computer to solve for eigenvalues w
 \ques{is it a good idea to cite forum posts? https://quantumcomputing.stackexchange.com/questions/24343/what-exactly-makes-vqe-faster-than-classical-optimization and https://quantumcomputing.stackexchange.com/questions/12112/whats-the-point-of-vqe-if-classical-computers-can-solve-for-eigenvalues-easily} 
 \todo{v tomto clanku je nieco o eigenvalues a eigensolver https://arxiv.org/abs/2106.10522}
 
-
-To sum it up, the VQE takes the Hamiltonian and an ansatz and outputs the lowest eigenvalue of a matrix defined by our cost function~\ref{eq:cost-function}.
+In conclusion, the VQE takes a Hamiltonian and an ansatz and outputs the lowest eigenvalue of a matrix defined by our cost function~\ref{eq:cost-function}.
 
 \section{Optimizers}
 An optimizer is an algorithm that takes a function as an input and tries to find the parameters that can lead to a minimal/maximal value of the function. In our case, the optimizer tries to find angles to a function~\ref{eq:cost-function} defined in the previous section. There is a plethora of optimization algorithms but broadly we can categorize them into two types, gradient-based and gradient-free.
@@ -46,5 +45,6 @@ The idea of gradient-based algorithms is to leverage the gradient to make a step
 
 
 \subsection{Barren plateau}
-Variational quantum algorithms suffer from a common pitfall in the challenge of parameter optimization, the so-called barren plateau problem. The barren plateau is a result of the phenomenon that gradients of the VQE parameters vanish exponentially. This is driven by a number of qubits, trainability, expressibility and other factors.~\cite{fedorov2021vqe} Simply put, we suffer from a barren plateau problem if we find ourselves on a vast ''plane'' and there is nothing in our surroundings. The vicinity is flat and optimization algorithms can become stuck in this plane because they may have difficulties finding a way how to get out of that. 
+Variational quantum algorithms suffer from a common pitfall in the challenge of parameter optimization, the so-called barren plateau problem. The barren plateau is a result of the phenomenon that gradients of the VQE parameters vanish exponentially. This is driven by a number of qubits, trainability, expressibility and other factors.~\cite{fedorov2021vqe} Simply put, we suffer from a barren plateau problem if we find ourselves on a vast ''plane'' and there is nothing in our surroundings. The vicinity is flat and optimization algorithms can become stuck in this plane because they may have difficulties escape this area.
+% TODO rewrite this section
 \todo{should I cover this topic in more detail?}
