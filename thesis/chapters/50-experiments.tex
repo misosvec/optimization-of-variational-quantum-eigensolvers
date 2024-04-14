@@ -4,7 +4,7 @@ This chapter covers the most important experiments that we have conducted. Along
 \section{Benchmark setup}
 The goal of this thesis is to benchmark the performance of multiple ansatzes and optimizers. Potentially, find some intriguing relationships from data produced by many VQE runs. \todo{this is at odds with the thesis assignment}. The first thing that came to our mind was to take few optimizers and ansatzes and look at how they perform. We did that by plotting an energy convergence graph. We discovered that the performance of VQE highly depends on chosen optimizers. 
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{convergence_example.png}
     \caption{Exmaples of energy convergence for various optimizers}
@@ -19,7 +19,7 @@ In our benchmark, we categorized ansatzes based on entanglement. We decided to g
 \subsubsection{Optimizers}
 After browsing some scientific articles we have not found any definite answer to which optimizers work the best. For that reason, we decided to test almost all optimizers that Qiskit offers. \todo{maye mention why I excluded P\_BFGS\_B and GSLS algorithms} Also, the optimizers offer a plethora of hyperparameters (parameters used to configure the optimizers themselves) and configuring them would be a nightmare so we went with the default ones, except for the number of iterations. We set the number of iterations to 100 for each optimizer. In the table~\ref{tab:optimizers} below we can see all the optimizers that we tested.
 
-\begin{table}
+\begin{table}[H]
     \centering
     \caption{Tested optimizers}
     \begin{tabular}{|l|c|c|} 
@@ -77,7 +77,7 @@ where coefficients are:
 This Hamiltonian can be further simplified to 2 qubits, however, we have retained this form to increase the complexity of the problem. The ground state of this Hamiltonian is $-1.8671050114542505$, we calculated that using a \textit{NumPyMinimumEigensolver} algorithm provided by Qiskit and we will use this value as a reference value for our experiments.
 
 \subsubsection{Implementation and data exploration}
-In all the experiments we utilized the Qiskit library, therefore all our code was written in Python programming language. We had to execute VQE many times, and it consumes a significant amount of time. Due to Python's global interpreter lock (GIL) that allows the execution of only a single thread at a time, we were forced to use Python's multiprocessing module. To speed up our computations we created multiple processes, each process was responsible for a single optimizer and these processes are automatically distributed to available CPU cores.
+In all the experiments we used the Qiskit library, therefore all our code was written in Python programming language. We had to execute VQE many times, and it consumes a significant amount of time. Due to Python's global interpreter lock (GIL) that allows the execution of only a single thread at a time, we were forced to use Python's multiprocessing module. To speed up our computations we created multiple processes, each process was responsible for a single optimizer and these processes are automatically distributed to available CPU cores.
 
 All the data that we collected from VQE runs we saved into a CSV file. This allowed us to later load the data into a Pandas data frame and perform some data exploration. For data exploration, we primarily leveraged the Plotly library which has an easy to use API and creates nice interactive visualizations with few lines of code. However, all the visualizations included in this thesis were created using Seaborn library, which is built on top of Matplotlib.
 
@@ -88,7 +88,7 @@ Initially, after running all the experiments, we were interested again in energy
 
 
 The first important thing that we have discovered is that it is impossible to reach a chemical precision with a 1-layer ansatz for any optimizer.
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{layers.png}
     \caption{Impact of ansatz layers}
@@ -97,7 +97,7 @@ The first important thing that we have discovered is that it is impossible to re
 
 In Figure \ref{fig:ansatz-layers}, we can see that no matter the optimizer, the probability of reaching a chemical precision is always zero for a 1-layer ansatz. Another very interesting thing is that gradient-based optimizers perform better with 3-layer ansatzes and gradient-free optimizers perform better with 2-layer ansatzes. We believe that this could be due to the number of parameters that need to be optimized. For all the subsequent visualizations, we decided to disregard 1-layer ansatzes and focused only on 2-layer and 3-layer ansatzes.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{chemical.png}
     \caption{Probability of reaching chemical precision for various optimizers, ansatzes, and number of layers}
@@ -107,7 +107,7 @@ In Figure \ref{fig:ansatz-layers}, we can see that no matter the optimizer, the 
 
 The figure above can seem a bit unclear due to the amount of overlapping data points. However, we can observe that the best results were achieved by some of the gradient-based optimizers, namely \textit{Conjugate Gradient}, \textit{L\_BFGS\_B} and \textit{SLSQP}. Gradient-free optimizers perform worse and they are more dependent on chosen ansatz whereas gradient-based optimizers tend to reach a very good probability no matter the ansatz, or they do not work at all. 
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{evaluations.png}
     \caption{Cost function evaluations along with the probability of reaching chemical perecision}

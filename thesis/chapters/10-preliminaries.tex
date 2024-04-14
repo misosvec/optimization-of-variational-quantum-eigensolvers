@@ -6,9 +6,27 @@ In this chapter, we will introduce all the necessary mathematical and quantum co
 In the case of standard computers, we use boolean algebra. Quantum computing leverages the power of linear algebra. In this section, we will build upon generic linear algebra concepts and introduce some of the concepts that are more specific to physics. We heavily rely on definitions from Mathematical Methods for Physicist book by Arfken et al. \cite{mmp}.
 \ques{je takato citacia korektna alebo mam radsej explicitne uviest, ktoru vetu, ktory odsek som zobral z knihy? cerpal som najma z tej knihy ale upravil som si to podla seba...}
 
+\subsection{Eigenvalues and eigenvectors}
+Eigenvalues and eigenvectors are some of the most important concepts in linear algebra. The problem of eigenvalues and eigenvectors can be defined by the following equation. 
+
+\begin{equation}
+  A\vec{v} = \lambda \vec{v}
+  \label{eq:eigen}
+\end{equation}
+
+\noindent $A$ is a square matrix, vector $\vec{v}$ and constant $\lambda \in \mathbb{C}$ are unknown. If $\vec{v} \neq 0$, $\vec{v}$ is an eigenvector of matrix $A$. Each eigenvector has a corresponding eigenvalue $\lambda$. The equation~\ref{eq:eigen} shows that the resulting vectors after multiplication with matrix $A$ and constant $\lambda$ are equal. An eigenvalue is a scalar that represents how much the eigenvector is stretched or shrunk. That necessarily means that an eigenvector is a vector that does not change its direction when multiplied by a matrix, only its length changes. This concept can be easily visually interpreted, see Figure~\ref{fig:eigen}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{eigenvector.png}
+  \caption{Geometric interpretation of eigenvectors and eigenvalues \cite{img:eigen}}
+  \label{fig:eigen}
+\end{figure} 
+
+
 \subsection{Complex conjugate}
 A complex number consists of real and imaginary parts. Given a complex number $z = a + bi$, it is useful to define another complex number, $z^{*} = a - bi$, which we call the complex conjugate of $z$. Forming
-$$zz^{*} = (a + bi)(a - bi) = a^2 + y^2,$$ reveals that $zz^{*}$ is a real number and it enables us to define absolute value as $\sqrt{zz^{*}}$, which is denoted by $\lvert z \rvert$. A complex conjugate can be also denoted as $\bar{z}$.
+$$zz^{*} = (a + bi)(a - bi) = a^2 + y^2,$$ reveals that $zz^{*}$ is a non-negative real number and it enables us to define absolute value as $\sqrt{zz^{*}}$, which is denoted by $\lvert z \rvert$. A complex conjugate can be also denoted as $\bar{z}$.
 
 \subsection{Adjoint of a matrix}
 For matrices that may have complex elements, the complex conjugate of a matrix is obtained by conjugating all elements of the original matrix. The notation for the complex conjugate of $A$ is $A^*$. The adjoint of a matrix $A$, denoted $A^\dag$ ($A$ dagger), is obtained by both complex conjugating and transposing it.
@@ -51,8 +69,9 @@ We multiply each element of the first matrix by the entire second matrix.
 \subsection{Bra-ket notation}
 Bra-ket notation, also known as Dirac notation plays an important role in quantum mechanics. It is a notation for vectors used to describe a quantum state. A ket is a standard column vector whereas a bra is an adjoint of a ket. 
 
-\begin{center}
-    \begin{tabular}{ c @{\hspace{3cm}} c }
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ c @{\hspace{3cm}} c }
         $\bra{\alpha} = \begin{pmatrix}
             a_1^* & a_2^* & \hdots & a_n^*
         \end{pmatrix}$ & $\ket{\beta} = \begin{pmatrix}
@@ -64,8 +83,8 @@ Bra-ket notation, also known as Dirac notation plays an important role in quantu
         $ \\ 
          & \\
      Bra & Ket
-    \end{tabular}
-    \end{center}
+  \end{tabular}
+\end{table}
 
 The main advantage of this notation is that enables us to easily write vector operations such as inner product
 $$\braket{\alpha}{\beta} = \begin{pmatrix}
@@ -92,28 +111,24 @@ $$\ket{\beta}\bra{\alpha} = \begin{pmatrix}
 \end{pmatrix},$$ and tensor product
 $$\ket{\alpha} \otimes \ket{\beta} = \ket{\alpha}\ket{\beta} = \ket{\alpha \beta}\text{.}$$
 \ques{I dont know whether I should include inner and outer product, I think that it does not bring any value and it is not used further in the thesis}
-\todo{maybe inner product vs dot product}
 
 \subsection{Hilbert space}
-Mostly, we are used to working with finite-dimensional vector spaces. Recall that the dimension of vector space is the number of vectors required to form a basis.
-
-In quantum computing, we work with infinite-dimensional vector spaces over $\mathbb{C}$. Virtually, Hilbert space is a standard vector space over $\mathbb{C}$, but in addition to that, it is equipped with a complete inner product.
-
-By complete, we mean that every infinite series of vectors in Hilbert space converges to another vector in Hilbert space. $$\sum_{i=0}^{\infty}\vert a_i \vert < \infty$$
-\todo{rework this part, it is not well explained}\\
-\todo{consider removing it, it is not as important}
-
+Mostly, we used to work with finite-dimensional vector spaces. Recall that the dimension of vector space is the number of vectors required to form a basis. In quantum computing, we work with infinite-dimensional vector spaces over field $\mathbb{C}$. Virtually, Hilbert space $\mathcal{H}$ is a standard vector space over $\mathbb{C}$, but in addition to that it satisfies the property of completeness:
+\begin{equation}
+  \sum_{i=0}^{\infty}\vert a_i \vert \in \mathcal{H}
+\end{equation}
+Simply put, each Cauchy sequence of vectors converges to a vector that lies in Hilbert space $\mathcal{H}$.
 
 \section{Introduction to quantum computing}
-The standard computers as we know them, for their functioning use laws of standard mechanics. Quantum computers, on the other hand, use the laws of quantum mechanics. Quantum mechanics describes the behavior of particles at the microscopic level, whereas standard mechanics deals with macroscopic objects (the ones we can see with the naked eye). The goal of this section is to highlight the most important concepts to get at least a brief idea of quantum computing.
+The standard computers as we know them, for their functioning use laws of standard mechanics. Quantum computers, on the other hand, use the laws of quantum mechanics. Quantum mechanics describes the behavior of particles at the microscopic level, whereas standard mechanics deals with macroscopic objects. The goal of this section is to highlight the most important concepts to get at least a brief idea of quantum computing.
 % deals or deal, above?
 \subsection{Qubit}
-A qubit is an abbreviation for a quantum bit. It is a bit counterpart in quantum computing, thus a basic unit of information in quantum computers. Classical bits can hold only two values, either 0 or 1. However, qubits are more complicated.
+A qubit is an abbreviation of quantum bit. It is a bit counterpart in quantum computing, thus a basic unit of information in quantum computers. Classical bits can hold only two values, either 0 or 1. However, qubits are more complicated.
 
-The state of a qubit is a vector in a two-dimensional complex vector space. States $\ket{0}$ and $\ket{1}$ are known as computational basis states and form an orthonormal basis for this vector space. \cite{qc} 
-$$\ket{0} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\text{, }\ket{1} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$$
-These states are analogous to the classical bits 0 and 1. In addition to that, qubits can be in a so-called superposition of states. This means that the state of a qubit can be a linear combination of states $\ket{0}$, and $\ket{1}$, therefore there are infinitely many states that qubit can be in. $$\ket{\psi} = \alpha \ket{0} + 
-\beta \ket{1}\text{, where } \alpha,\beta \in \mathbb{C}\text{, and } \lvert \alpha \rvert^2 + \lvert \beta \rvert^2 = 1$$
+The state of a qubit is a vector in a two-dimensional complex vector space. States $\ket{0}$ and $\ket{1}$ are known as computational basis states and form an orthonormal basis for this vector space~\cite{qc} 
+$$\ket{0} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\text{, }\ket{1} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}\text{.}$$
+These states are analogous to the classical bits 0 and 1. In addition to that, qubits can be in a so-called superposition of states. This means that the state of a qubit can be a linear combination of states $\ket{0}$, and $\ket{1}$, therefore there are infinitely many states that qubit can be in $$\ket{\psi} = \alpha \ket{0} + 
+\beta \ket{1}\text{, where } \alpha,\beta \in \mathbb{C}\text{, and } \lvert \alpha \rvert^2 + \lvert \beta \rvert^2 = 1\text{.}$$
 
 All these vectors and complex numbers may be difficult to understand and envision. For simplification, we can leverage the Bloch sphere to visualize the state of qubits. It is a unit sphere named after physicist Felix Bloch. For the sake of simplicity, we will not go into the details, but if we use the properties of a quantum state, there is a possibility to rewrite it cleverly, such that a quantum state can be visualized as a vector in a Bloch sphere.
 
@@ -125,17 +140,17 @@ All these vectors and complex numbers may be difficult to understand and envisio
 \end{figure} 
 
 
-In reality, physical qubits can be realized in different ways. There is a plethora of options but the most prominent ones used by leading companies are superconducting qubits and trapped ions (an atom that is not neutral).
-\ques{should I also mention that qubits cannot be copied? (no-cloning theorem)}
+In reality, physical qubits can be realized in different ways. There is a plethora of options but the most prominent ones used by leading companies are superconducting qubits and trapped ions (an atom that is not neutral). However, we cannot omit photon-based qubits that can succeed as well.  
 % As opposed to classical bits, qubits have a few more interesting properties that can be worth mentioning.
 
 \subsubsection{Multiple qubits}
-Suppose we have two qubits. If these were two classical bits, then there would be four possible states, 00, 01, 10, and 11. Correspondingly, a two-qubit system has four computational basis states denoted $\ket{00}$, $\ket{01}$, $\ket{10}$, $\ket{11}$. A pair of qubits can also exist in superpositions of these four states, so the quantum state of two qubits involves associating a complex coefficient, sometimes called an amplitude, with each computational basis state, such that the state vector describing the two qubits is
-$$\ket{\psi} = \alpha \ket{00} + \beta \ket{01} + \gamma \ket{10} + \delta \ket{11}\cite{qc}\text{.}$$
+Suppose we have two qubits. If these were two classical bits, then there would be four possible states, 00, 01, 10, and 11. Correspondingly, a two-qubit system has four computational basis states denoted $\ket{00}$, $\ket{01}$, $\ket{10}$, $\ket{11}$. A pair of qubits can also exist in superpositions of these four states, so the quantum state of two qubits involves associating a complex coefficient, sometimes called an amplitude, with each computational basis state, such that the state vector describing the two qubits is~\cite{qc}
+$$\ket{\psi} = \alpha \ket{00} + \beta \ket{01} + \gamma \ket{10} + \delta \ket{11}\text{.}$$
 
-This multiqubit ket notation might be confusing. If we have $\ket{100}$, number $100$ is a binary representation of number $4$. The resulting vector will be eight-dimensional ($2^3 = 8$) with number one at the fourth position (indexing starts from zero). Similarly, $\ket{1111}$ will have number one at the fifteenth position.
+% TODO upravit, ale asi to dam cele prec
+% This multiqubit ket notation might be confusing. If we have $\ket{100}$, number $100$ is a binary representation of number $4$. The resulting vector will be eight-dimensional ($2^3 = 8$) with number one at the fourth position (indexing starts from zero). Similarly, $\ket{1111}$ will have number one at the fifteenth position.
 \subsection{Measurements}
-Measurement is an operation that enables us to find out the state of a qubit, however, this operation does not work as most of us would expect. When we measure a qubit we get either the result $\ket{0}$, with probability $\lvert \alpha \rvert^2$, or the result $\ket{1}$, with probability $\lvert \beta \rvert^2$ \cite{qc}. Naturally, $\lvert \alpha \rvert^2 + \lvert \alpha \rvert^2 = 1$, since the probabilities must sum to one \cite{qc}. \ques{is this a correct way how to cite a two following sentences?} Measurement is a destructive operation, upon first measurement, the state of a qubit is collapsed to either $\ket{0}$ or $\ket{1}$, and any subsequent measurements will yield the same result. We cannot recover the original state of a qubit after measurement. There are three types of measurements, with respect to axes and each returns one of two states specified in a Table~\ref{tab:measurements-states}.
+Measurement is an operation that enables us to find out the state of a qubit, however, this operation does not work as most of us would expect. When we measure a qubit we get either the result $\ket{0}$, with probability $\lvert \alpha \rvert^2$, or the result $\ket{1}$, with probability $\lvert \beta \rvert^2$ \cite{qc}. Naturally, $\lvert \alpha \rvert^2 + \lvert \beta \rvert^2 = 1$, since the probabilities must sum to one \cite{qc}. \ques{is this a correct way how to cite the two following sentences?} Measurement is a destructive operation, upon first measurement, the state of a qubit is collapsed to either $\ket{0}$ or $\ket{1}$, and any subsequent measurements will yield the same result. We cannot recover the original state of a qubit after measurement. Table~\ref{tab:measurements-states} shows canonical measurements on the X, Y and Z axes, however, there are infinitely many ways to measure a qubit, depending on how we rotate it.
 % TODO each vs each measurement
 \begin{table}[H]
   \centering
@@ -153,7 +168,7 @@ Measurement is an operation that enables us to find out the state of a qubit, ho
   \caption{Mesaurements and their respective states}
   \label{tab:measurements-states}
 \end{table}
-Most (if not all) contemporary quantum computers perform measurements on a computational basis (z-axis). We can also realize measurement on other bases by converting them to computational basis using additional rotation.
+Most (if not all) contemporary quantum computers perform measurements only on a computational basis (z-axis). Table~\ref{tab:measurements-conversion} demonstrates how measurements on the X and Y axes can be converted to the Z-axis measurement.~\cite{blog}
 
 \begin{table}[H]
   \centering
@@ -165,13 +180,10 @@ Most (if not all) contemporary quantum computers perform measurements on a compu
       \hline
       y-axis & we apply gate $RX(\pi/2)$ \\ 
       \hline
-      z-axis & we do not have to do anything \\ 
-      \hline
   \end{tabular}
-  \caption{Mesaurements and their conversion to computational basis~\cite{blog}}
+  \caption{Measurements and their conversion to computational basis}
   \label{tab:measurements-conversion}
 \end{table}
-\todo{consider adding the picture that shows the bases}\\
 
 \subsection{Quantum gates}
 Thus far, our focus has been on examining the properties of qubits, leaving the question of qubit manipulation unanswered. This section delves into the fundamental quantum gates, accompanied by visual representations to enhance comprehension.
@@ -180,74 +192,43 @@ Quantum gates are the quantum equivalent of classical logic gates. In contrast t
 
 Another specialty of quantum gates or quantum computation in general is that they are reversible. This means that we can from the output of the gate, we can always determine the input. This is not the case for logic gates. For instance, the \textit{AND} gate is not reversible. From the output, we cannot determine the input. \cite{qc}
 
-Below are some of the most fundamental gates used in quantum computing.
-\subsubsection{X gate}
-The X gate is a single qubit gate. It is also known as a bit-flip gate because state $\ket{0}$ is flipped to $\ket{1}$ and vice versa \cite{qc}. In simple words, it flips the state by 180 degrees around the x-axis of the bloch sphere.
+\subsubsection{X, Y, Z gates}
+Gates X, Y, and Z are the most fundamental single-qubit gates. All three gates perform rotation by 180 degrees of the Bloch sphere, the X gate around the X-axis, the Y gate around the Y-axis, and the Z gate around the Z-axis. They are also known as bit-flip, phase-flip, and bit-phase-flip gates, respectively~\cite{qc}. The parametrized equivalents of these gates are called RX, RY, and RZ. These gates are used to rotate the state of a qubit by a given angle.
 
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.4\linewidth}
-      \centering
+\begin{table}[H]
+  \centering
+  \caption{X, Y, and Z gates and their matrix and visual representations}
+  \begin{tabular}{|c|c|c|} 
+      \hline
+      \textbf{X-gate} & \textbf{Y-gate} & \textbf{Z-gate}\\
+      \hline
+      &&\\[0.5pt]
       $\begin{pmatrix}
         0 & 1 \\
         1 & 0
-        \end{pmatrix}$
-      \vfill
-    \end{minipage}
-    \begin{minipage}{0.25\linewidth}
-      \centering
-      \includegraphics[]{x-gate.png}
-      \vfill
-    \end{minipage}
-    \caption{Matrix and visual representation of the X gate.}
-\end{figure}
-
-
-\qubitRotation{qubit-zero-state.png}{qubit-x-gate.png}{X gate acting on the initial state}
-\subsubsection{Y gate}
-The Y gate flips the state by 180 degrees around the y-axis of the Bloch sphere.
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.4\linewidth}
-      \centering
+      \end{pmatrix}$ & 
       $\begin{pmatrix}
         0 & -i \\
         i & 0
-        \end{pmatrix}$
-      \vfill
-    \end{minipage}
-    \begin{minipage}{0.25\linewidth}
-      \centering
-      \includegraphics[]{y-gate.png}
-      \vfill
-    \end{minipage}
-    \caption{Matrix and visual representation of the Y gate.}
-\end{figure}
-
-\qubitRotation{qubit-zero-state.png}{qubit-y-gate.png}{Y gate acting on the initial state}
-
-\subsubsection{Z gate}
-This gate also earned a name phase flip. The state $\ket{0}$ leaves intact, but it changes the state $\ket{1}$ to $-\ket{1}$ \cite{qc}. It is a rotation of the state by 180 degrees around the z-axis of the Bloch sphere.
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.4\linewidth}
-      \centering
+      \end{pmatrix}$ &
       $\begin{pmatrix}
         1 & 0 \\
         0 & -1
-        \end{pmatrix}$
-      \vfill
-    \end{minipage}
-    \begin{minipage}{0.25\linewidth}
-      \centering
-      \includegraphics[]{z-gate.png}
-      \vfill
-    \end{minipage}
-    \caption{Matrix and visual representation of the Z gate.}
-\end{figure}
+      \end{pmatrix}$\\
+      &&\\[0.5pt]
+      \hline
+      &&\\[0.5pt]
+      \includegraphics[]{x-gate.png} & \includegraphics[]{y-gate.png}  & \includegraphics[]{z-gate.png}\\
+      &&\\[0.5pt]
+      \hline
+      &&\\[0.5pt]
+      \includegraphics[width=.32\textwidth]{qubit-x-gate.png} & \includegraphics[width=.32\textwidth]{qubit-y-gate.png} & \includegraphics[width=.32\textwidth]{qubit-z-gate.png}\\
+      \hline
+  \end{tabular}
+  \label{tab:xyz-gates}
+\end{table}
 
-\qubitRotation{qubit-superposition.png}{qubit-z-gate.png}{Z gate acting on a superposition state}
-Note that this time we used a different initial state. If we had started from the initial state, we would have not seen any change.
+The X gate is also known as a bit-flip gate because state $\ket{0}$ is flipped to $\ket{1}$ and vice versa~\cite{qc}. The Z-gate leaves state $\ket{0}$ intact, but it changes the state $\ket{1}$ to $-\ket{1}$~\cite{qc}. Note that the initial state of the Z-gate differs from the X and Y gates. If we had started from the initial state, we would have not seen any change.
 
 \subsubsection{Hadamard gate}
 The Hadamard operation is just a rotation of the sphere about the y-axis by 90 degrees, followed by a rotation about the x-axis by 180 degrees \cite{qc}. If we apply Hadamard gate on a qubit in state $\ket{0}$, we get a qubit in an equal superposition of $\ket{0}$ and $\ket{1}$.
@@ -271,7 +252,7 @@ The Hadamard operation is just a rotation of the sphere about the y-axis by 90 d
 \todo{create Hadamard gate state transition visualization}
 
 \subsubsection{Controlled-NOT gate} 
-Controlled-NOT (CNOT) gate has two input qubits, known as the control qubit and the target qubit, respectively. The action of the gate may be described as follows. If the control qubit is set to 0, then the target qubit is left alone. If the control qubit is set to 1, then the target qubit is flipped. \cite{qc}
+Controlled-NOT (CNOT) gate has two input qubits, known as the control qubit and the target qubit, respectively. The action of the gate may be described as follows. If the control qubit is set to 0, then the target qubit is left untouched. If the control qubit is set to 1, then the target qubit is flipped. \cite{qc}
 
 \begin{figure}[H]
   \centering
@@ -293,9 +274,6 @@ Controlled-NOT (CNOT) gate has two input qubits, known as the control qubit and 
   \caption{Matrix and visual representation of the CNOT gate.}
 \end{figure}
 
-\todo{fix alignment of matrices and gate icon}\\
-\todo{consider improving the layout of all the figures, they occupy too much space, maybe I can add a 3x3 table for X, Y, and Z gates that shows qubit state transition, matrix, and gate notation}\\
-\todo{mention that these gates have also their parametrized version RX, RY, RZ...}
 \subsection{Quantum entanglement}
 Apart from superposition, quantum entanglement is another quantum phenomenon that gives us an advantage over classical computers. When qubits are entangled we mean that they are somehow bound together and they are dependent. Altering the state of one qubit will immediately alter the state of the other qubit in a predictable way. In the below example, we will demonstrate the most simple entangled state, also known as the Bell state.
 
@@ -326,47 +304,11 @@ Apart from superposition, quantum entanglement is another quantum phenomenon tha
 
 \noindent From the above example, we can see that the qubits are correlated. This particular state is a superposition of only two states $\ket{00}$ and $\ket{11}$, without entanglement we would have to consider a superposition of four states $\ket{00}$, $\ket{01}$, $\ket{10}$, and $\ket{11}$. If the first qubit is measured to be in state $\ket{0}$, then the second one will also be in state $\ket{0}$. The same applies to state $\ket{1}$.
 
-\subsection{Example of quantum computation}
-In this section, we will show simple examples to better understand how all the vectors, matrices, and operations work together.
-
-\begin{figure}[H]
-    \begin{center}
-       \includegraphics[width=0.5\textwidth]{example-circuit.png}
-       \caption{Example circuit}
-    \end{center}
-\end{figure}
-
-We can proceed in so-called ''columns'' or ''levels''.
-At the first level, there is a parametrized RX gate, Hadamard gate, and the third qubit does not have any gate, we can consider that as an identity gate.
-$$L_1 = RX \otimes H \otimes I = \begin{pmatrix} 
-\cos{\frac{\theta}{2}} & -i\sin{\frac{\theta}{2}} \\
--i\sin{\frac{\theta}{2}} & \cos{\frac{\theta}{2}}
-\end{pmatrix} \otimes \begin{pmatrix} 
-\frac{1}{\sqrt{2}} &  \frac{1}{\sqrt{2}}  \\
-\frac{1}{\sqrt{2}}  &  -\frac{1}{\sqrt{2}} 
-\end{pmatrix} \otimes \begin{pmatrix} 
-1 & 0 \\
-0 & 1
-\end{pmatrix}$$
-The second level contains a CNOT gate, that acts on the first and third qubit. We will interpret the operation on the second qubit as identity. 
-$$ L_2 = CNOT \otimes I = \begin{pmatrix}
-1 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 0 & 0 & 1 \\
-0 & 0 & 1 & 0
-\end{pmatrix}\otimes\begin{pmatrix} 
-1 & 0 \\
-0 & 1
-\end{pmatrix}$$
-Our circuit consists of three qubits. Every qubit is initialized in a state $\ket{0}$, we have three of them, therefore our initial state is $\ket{000}$. To obtain the final matrix of the circuit we need to multiply the initial state with matrices $L_1$ and $L_2$.
-$$RESULT = \ket{000}L_{1}L_2$$
-Notice that, if we would not have used identity gates, eventually we would run into a problem with matrix dimensions incompatibility when doing matrix multiplication.
-\ques{I'm not sure whether it makes sense to include this example, when above we showed simple computation of the bell state}
 \subsection{Noisy Intermediate-Scale Quantum (NISQ) computers}
 In today's world, quantum computers still suffer from several problems, namely the following ones.
 
 \subsubsection{Scalability}
-The more qubits we have, the bigger instances of problems we can solve. However, with an increasing number of qubits, and the number of gates we introduce errors into quantum computation. The gates themselves, especially the entangling ones, possess a certain probability that the outcome of the gate will result in an error. Also, qubit connectivity goes hand in hand with the scalability. It is not very rational to have a large number of qubits if they are not connected and we cannot use multiqubit gates on them.
+The more qubits we have, the bigger instances of problems we can solve. However, with an increasing number of qubits and the number of gates we introduce errors into quantum computation. The gates themselves, especially the entangling ones, possess a certain probability that the outcome of the gate will result in an error. Also, qubit connectivity goes hand in hand with the scalability. It is not very rational to have a large number of qubits if they are not connected and we cannot use multiqubit gates on them.
 
 \subsubsection{Quantum decoherence}
 Qubits are very sensitive and their state can be easily influenced by the noise from the environment. By noise we mean magnetic fields, radio waves, vibrations, light, and more. To minimize this effect, quantum processing units (QPUs) are accompanied by other components that are used to shield the qubits from the environment and keep them at temperatures close to absolute zero ($0$K = $-273.15^{\circ}$C). Thanks to that quantum computers are large in size and they often resemble chandeliers even though QPUs are in size comparable to processors in standard computers.
@@ -395,4 +337,4 @@ Hamiltonian defines the total energy of a physical system. Many different forms 
 $$\hat{H} = \sum_{i=1}^{m}c_i\sigma_i \text{, } \sigma_i \in \{I, X, Y, Z\}^{\otimes n}\text{, } c_i \in \mathbb{R} \text{, }$$ 
 where $I$ is an identity matrix and $X$, $Y$, $Z$ are Pauli matrices which we discussed in the section \ref{sec:pauli-matrices}.~\cite{fedorov2021vqe}
 
-The Pauli matrices represent measurements. This expression, $c_{1}Z_{0}X_{1}Y_{2}$, means that we measure qubit zero on the z-axis, qubit one on the x-axis, and qubit two on the y-axis and we will multiply the results together with the coefficient $c_{1}$. Sometimes this Hamiltonian representation is referred to as a sum of Pauli strings. The specialty of this representation of Hamiltonian is that it forms a Hermitian matrix and Hermitian matrices have real eigenvalues.
+The Pauli matrices represent measurements. For instance, the expression $c_{1}Z_{0}X_{1}Y_{2}$ means that we measure qubit zero on the z-axis, qubit one on the x-axis, and qubit two on the y-axis and we will multiply the results together with the coefficient $c_{1}$. Sometimes this Hamiltonian representation is referred to as a sum of Pauli strings. Ground state energy is a real number therefore this Hamiltonian representation has real eigenvalues, this fact concludes that Hamiltonian is a Hermitian matrix. 

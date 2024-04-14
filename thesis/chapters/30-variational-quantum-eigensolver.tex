@@ -19,7 +19,6 @@ In quantum mechanics, there is a famous Schrödinger equation ($\hat{H} \Psi = E
 From the computer science standpoint, it is enough to know that it is an approximation method to find the ground state energy of a quantum system.
 
 \section{Eigensolver}
-\ques{should I include eigenvalue and eigenvectors in the math part or should I take this knowledge for granted? at the time when I started studying, it wasn't part of a curriculum}\\
 As we indicated above, this algorithm solves for eigenvalues of a given Hamiltonian. Specifically, we are interested in the lowest eigenvalue because that eigenvalue corresponds to the ground state energy. 
 
 Let $\hat{H}$ be our Hamiltonian, $\Psi$ denotes our ansatz with parameters $\theta$. The goal of the VQE algorithm is to find the best set of parameters $\theta$ that can lead to the minimal value of the cost function. Then we can compute the ground state energy using the following formula 

@@ -1,79 +1,71 @@
 \chapter{Ansatz}\label{ch:ansatz}
-Before we delve into details let us preface this section with an etymology of the word ansatz. In physics and mathematics, an ansatz (plural ansätze) is a German word that means an educated guess, an initial point, or an additional assumption made to help solve a problem, and which may later be verified to be part of the solution by its results \cite{ansatz_etymology}.
+Before we delve into details let us preface this section with an etymology of the word ansatz. In physics and mathematics, an ansatz (plural ansätze) is a German word that means an educated guess, an initial point, or an additional assumption made to help solve a problem, and which may later be verified to be part of the solution by its results~\cite{ansatz_etymology}.
 
-In the context of quantum computing, an ansatz is a parametrized quantum circuit,  a quantum circuit comprised of quantum gates and some of them are parametrized. Parametrized quantum circuits are often used in variational algorithms where the parameters are optimized by classical computers.
+In the context of quantum computing, an ansatz refers to a parametrized quantum circuit, which is comprised of quantum gates and some of them are parametrized. Ansatzes are often used in variational algorithms where the circuit parameters are optimized by classical computers.
 
-In this chapter, we will discuss the importance of the ansatz, its properties, and types. We will also introduce some popular ansatzes.
+In this chapter, we will discuss the role of the ansatz, its properties, types, and introduce several popular examples. Moreover, we will address the challenges that can impede the design of an ansatz.
 
 \section{Expressibility}
-The notion of expressibility can be very helpful to get an understanding what is the role of the ansatz. Expressibility says how much of the Hilbert space can be covered by our ansatz. The following pictures should illustrate this concept very well.
+The notion of expressibility can be very helpful to get an understanding what is the role of the ansatz. Expressibility says how much of the Hilbert space can be covered by our ansatz. The following images should provide a clear explanation of this idea.
 
 \begin{figure}[H]
         \centering
         \begin{minipage}{0.4\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{expressibility-hrzrx-circuit.png}
-            \vfill
+            \includegraphics[scale=0.9]{expressibility-hrzrx-circuit.png}
         \end{minipage}
-        \hfill
         \begin{minipage}{0.4\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{expressibility-hrzrx-qubit.png}
-            \vfill
+            \includegraphics[scale=0.39]{expressibility-hrzrx-qubit.png}
         \end{minipage}
-        \caption{1000 points sampled uniformly randomly}
+        \caption{Ansatz expressibility, 1000 parameters sampled uniformly randomly}
 \end{figure}
 
-Provided we know that our solution lies in the real part of Hilbert space, we can just use a simpler ansatz that covers only the real part of Hilbert space. Other gates would just introduce more noise to our circuit and the more parameters we have, the more difficult it is to optimize them.
+Provided we know that our solution is a real number, we can use a simpler ansatz that covers only a real part of the Hilbert space. Additional gates would introduce more noise into our circuit and the more parameters we have, the more difficult it is to optimize them.
 
 \begin{figure}[H]
     \centering
     \begin{minipage}{0.4\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{expressibility-ry-circuit.png}
-        \vfill
+        \includegraphics[scale=0.95]{expressibility-ry-circuit.png}
     \end{minipage}
-    \hfill
     \begin{minipage}{0.4\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{expressibility-ry-qubit.png}
-        \vfill
+        \includegraphics[scale=0.39]{expressibility-ry-qubit.png}
     \end{minipage}
-    \caption{200 points sampled uniformly randomly}
+    \caption{Ansatz expressibility, 200 parameters sampled uniformly randomly}
 \end{figure}
-\todo{make sure that the pictures circuit are of the same size}\\
-\todo{should I include how to measure it? KL divergence?}
-
 
 \section{Trainability}
 Trainability refers to a process of how easy it is to find optimal parameters for our circuit. Circuit with higher amounts of qubits and parameters may exhibit problems with finding the optimal parameters. In the area of quantum circuits, it is mainly caused by the barren plateau (vast planes) problem which we will discuss in the next chapter.
-\todo{maybe make it more detailed}
+\todo{make it more detailed!!}
 
 \section{Circuit depth}
 A circuit depth is a measure that says how many levels of gates we have in our quantum circuit. It is a way to increase a circuit's expressibility but at the same time is a way how to introduce more noise into a circuit. 
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.2\linewidth}
+    \begin{subfigure}[b]{0.2\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{circuit-depth-1.png}
-        \caption*{Circuit depth: 1}\label{fig:circuit_depth_1}
-    \end{minipage}
+        \includegraphics[scale=0.7]{circuit-depth-1.png} 
+        \caption*{1}
+    \end{subfigure}
     \hfill
-    \begin{minipage}{0.3\linewidth}
+    \begin{subfigure}[b]{0.3\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{circuit-depth-3.png}
-        \caption*{Circuit depth: 3}\label{fig:circuit_depth_3}
-    \end{minipage}
+        \includegraphics[scale=0.7]{circuit-depth-3.png}
+        \caption*{3}
+    \end{subfigure}
     \hfill
-    \begin{minipage}{0.45\linewidth}
+    \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{circuit-depth-6.png}
-        \caption*{Circuit depth: 6}\label{fig:circuit_depth_6}
-    \end{minipage}
-    \caption{Circuit depth}
+        \includegraphics[width=\textwidth]{circuit-depth-6.png}
+        \caption*{6}
+    \end{subfigure}
+       \caption{Circuit depth}
+       \label{fig:circuit-depth}
 \end{figure}
-\todo{fix sizes of gates and center subcaptions vertically}
+
 Alternatively, we can say it is the longest path in a circuit. Circuits whose depth $\in O(\log n)$ are said to be shallow.
 \todo{cite that claim}
 
