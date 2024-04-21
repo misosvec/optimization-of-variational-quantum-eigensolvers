@@ -1,33 +1,13 @@
 \chapter{Qiskit}\label{ch:qiskit}
 This chapter describes a solution that we use for programming quantum computers and working with quantum algorithms. 
 
-Do not confuse programming a quantum computer with standard high-level programming as we know it from classical computers, we are not there yet. The programming of quantum computers is more like programming in assembly language. A thorough knowledge of computer's hardware and architecture is crucial in assembly language programming, as it involves the manipulation of hardware through the use of low-level instructions. A similar principle is applied here, we have qubits and we manipulate them using quantum gates. For this purpose, we decided to go with an open-source Qiskit (Quantum Information Science Kit) library for Python backed by IBM.
+Do not confuse programming a quantum computer with standard high-level programming as we know it from classical computers, we are not there yet. The programming of quantum computers is more like programming in assembly language. A thorough knowledge of computer's hardware and architecture is crucial in assembly language programming, as it involves the manipulation of hardware through the use of low-level instructions. A similar principle is applied here, we have qubits and we manipulate them using quantum gates. For this purpose, we decided to go with an open-source Qiskit (Quantum Information Science Kit)~\cite{qiskit} library for Python backed by IBM.
 % For this purpose sa tu vobec nehodi
 
-There are also other alternatives like Cirq (by Google), Pennylane (by Xanadu), Q\# (by Microsoft), Sliq (by ETH Zürich), and many more. \ques{should I include citations to these libraries/companies?} The reason why we decided on Qiskit is that it serves our purpose and it is far ahead of its competitors and competitors offer nowhere near what Qiskit offers. It is the most popular quantum computing library, it provides plenty of learning resources, tutorials, videos, and as it is open source there is a big community around it. IBM has built an entire ecosystem around it \cite{qiskit_ecosystem} with libraries for quantum machine learning, chemistry, finance, and many more. The 7-year work of IBM culminated in the middle of February 2024, when they released version 1.0.0. of Qiskit. Even though Qiskit is mainly developed by IBM, it is not limited to IBM's quantum computers, through additional packages can support a hardware of other companies.
+There are also other alternatives like Cirq (by Google)~\cite{cirq}, Pennylane (by Xanadu)~\cite{pennylane}, Q\# (by Microsoft)~\cite{qsharp}, Sliq (by ETH Zürich)~\cite{sliq}, and many more. The reason why we decided on Qiskit is that it serves our purpose and it is far ahead of its competitors and competitors offer nowhere near what Qiskit offers. It is the most popular quantum computing library, it provides plenty of learning resources, tutorials, videos, and as it is open source there is a big community around it. IBM has built an entire ecosystem around it \cite{qiskit_ecosystem} with libraries for quantum machine learning, chemistry, finance, and many more. The 7-year work of IBM culminated in the middle of February 2024, when they released version 1.0.0. of Qiskit. Even though Qiskit is mainly developed by IBM, it is not limited to IBM's quantum computers, through additional packages can support a hardware of other companies.
 
-\subsection{Quantum simulator}
-\todo{Here I wanted to write about how the Qiskit quantum simulator works (statevector simulator, unitary simulator, qiskit aer, qasm, sampler vs estimator vs simulator), I've spent a lot of time researching it but I have not found any useful information that explains how things work. I've just found one-line explanations of multiple simulators that Qiskit offers, also there is a lot of confusion with deprecated and new simulators }
-\todo{Most likely I will ditch this section and I will add something general about quantum simulation and I will build upon the text that I already added when I was explaining the point of VQE}
+\section{Quantum simulation}
+One might question, why there is a need for a quantum computer to solve for eigenvalues when a classical computer can do it in polynomial time. This is true, but if the matrix size is exponentially large, the problem becomes untractable for classical computers and here quantum computers come into play.
 
-\todo{VQE is probably a better place for paragraphs below}
-\begin{definition} (Shots) 
-    A shot is a single run of a quantum circuit. As we know from the previous chapters, a quantum computation is probabilistic. The results of individual shots can be different. The more shots we run, the more accurate the results are.
-\end{definition}
-\todo{This does not make sense to include it since we are considering only ideal computations}
-In the below picture, we can see a distribution of measurements when using different numbers of shots. Each one of the states is equally likely. With an increasing number of shots, we can observe that the distribution converges to a uniform distribution.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{shots-distribution.png}
-    \caption{Measurement distribution for different numbers of shots.}\label{fig:output}
-\end{figure}
-
-\begin{definition} (Iteration) 
-    An iteration is a single run of the VQE, thus run a quantum circuit to find an expectation value of the Hamiltonian and then use the classical optimizer to find the best parameters for the next iteration.
-\end{definition}
-\todo{this is not a good explanation, rework}
-
-\begin{definition}(Function evaluation)
-    Our cost function is passed to a classical optimizer which tries to determine the best parameters that can lead to minimal value. Function evaluations are a number of how many times the cost function was evaluated. In a single iteration can optimizer evaluate the cost function multiple times, it is based on the optimizer's strategy.
-\end{definition}
+We will try to illustrate the advantage of quantum computers in this simple example from Quantum Computation and Quantum Information by Michael A. Nielsen and Isaac L. Chuang~\cite{qc}. Suppose we have a system containing 50 qubits. To describe a state of such a system requires $2^{50} \approx 10^{15}$ complex amplitudes. If the amplitudes are stored in to 128 bits of precision, then it requires 256 bits or 32 bytes to store each amplitude. At total $32 \times 10^{15}$ is about $32$ thousand of terabytes. It is important to realize that with each additional qubit, the memory requirements are doubled.
+In essence, we benefit from the fact that we can encode a matrix of size $2^n \times 2^n$. We can encode the matrix into a quantum computer using $n$ qubits, therefore the number of qubits grows $O(poly(n))$.

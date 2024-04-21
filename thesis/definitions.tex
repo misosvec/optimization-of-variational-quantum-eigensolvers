@@ -11,7 +11,7 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta}
+\usetikzlibrary{arrows.meta, quotes, calc}
 \usetikzlibrary{positioning}
 
 \usepackage{url}
@@ -68,26 +68,3 @@
 \newcommand{\bra}[1]{\langle#1\rvert} % Bra
 \newcommand{\ket}[1]{\lvert#1\rangle} % Ket
 \newcommand{\braket}[2]{\langle#1\vert#2\rangle} % Bra-ket
-\newcommand{\qubitRotation}[3]{
-    \begin{figure}[H]
-        \centering
-        \begin{minipage}{0.4\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{#1}
-            \vfill
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.15\linewidth}
-            \centering
-            $\implies$
-            \vfill
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.4\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{#2}
-            \vfill
-        \end{minipage}
-        \caption{#3}
-    \end{figure}
-}

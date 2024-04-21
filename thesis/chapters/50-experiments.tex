@@ -1,6 +1,12 @@
 \chapter{Experiments}\label{ch:experiments}
 This chapter covers the most important experiments that we have conducted. Along with that, we provide details on how we proceeded and also some thought processes that influenced our decisions. At the end of this chapter, we present a summary of our results.
 
+Before we delve into the experiments, we need to define some terms that we will appear in this chapter.
+
+An \textit{iteration} is a single run of the VQE including the quantum and classical parts. The number of iterations determines how many times we will obtain a new set of optimized parameters for the ansatz.
+
+When an optimization algorithm tries to find the best parameters for the ansatz, it evaluates the cost function. \textit{Cost function evaluations} counts how many times the cost function was evaluated. The amount of cost function evaluations in a single iteration depends on the optimizer's strategy.
+
 \section{Benchmark setup}
 The goal of this thesis is to benchmark the performance of multiple ansatzes and optimizers. Potentially, find some intriguing relationships from data produced by many VQE runs. \todo{this is at odds with the thesis assignment}. The first thing that came to our mind was to take few optimizers and ansatzes and look at how they perform. We did that by plotting an energy convergence graph. We discovered that the performance of VQE highly depends on chosen optimizers. 
 
@@ -50,16 +56,30 @@ After browsing some scientific articles we have not found any definite answer to
         \hline
         AMSGRAD (a variant of ADAM with memory) & gradient-based \\ 
         \hline
-        L\_BFGS\_B (Limited-memory BFGS Bound)  & gradient-based \\ 
+        L\_BFGS\_B (Limited-memory BFGS Bound) & gradient-based \\ 
         \hline
-        SLSQP (Sequential Least SQuares Programming)  & gradient-based \\ 
+        SLSQP (Sequential Least SQuares Programming) & gradient-based \\ 
         \hline
-        TNC (Truncated Newton)  & gradient-based \\ 
+        TNC (Truncated Newton) & gradient-based \\ 
         \hline
     \end{tabular}
     \label{tab:optimizers}
 \end{table}
-\ques{Do we want to describe each optimizer?}
+UMDA - UMDA belongs to a family of evolutionary algorithms, it constructs a probabilistic model from the possible candidates and then it samples new candidates to reach better results~\cite{umda}.\\
+COBYLA - Gradient-free and derivative-free method that examines the so-called ``trusted region'' of the current point and attempts to find the next point by linear approximation of cost function.~\cite{cobyla}.\\
+Powell - Powell's method does not require derivatives and ignores bounds and constraints. It iteratively examines orthogonal directions and performs one-dimensional minimization along each direction.~\cite{powell}.\\
+NFT - An algorithm designed specifically for quantum-classical hybrid algorithms. It leverages the properties of quantum circuits and splits the problem into smaller subproblems by considering only a certain subset of parameters.~\cite{nft}
+AQGD - 
+SLSQP - \\
+NELDER -MEAD
+SPSA - This algorithm approximates gradient hence cannot be considered as a true gradient-based algorithm. Also, each iteration requires only two cost function evaluations~\cite{spsa}.\\
+QNSPSA - This algorithm is tailored for quantum optimization problems, it builds upon SPSA and also leverages some properties of quantum circuits~\cite{qnspsa}.\\
+Gradient Descent - standard gradient descent algorithm that moves by specified step size in a direction of steepest descent based on calculated gradient.~\cite{gd}\\
+CG - Unlike Gradient Descent which moves in the direction of steepest descent, Conjugate Gradient picks a set of orthogonal directions and moves in each direction exactly once~\cite{cg}.\\ 
+L\_BFGS\_B - BFGS algorithm is a quasi-Newton method, this memory-limited version approximates the original BFGS with a limited amount of memory and also enables us to define constraints for variables~\cite{lbfgsb}.\\
+TNC - It is also called Newton Conjugate Gradient because it uses the Conjugate gradient algorithm as an inner routine and in addition to that it allows to set bounds for each variable~\cite{tnc}.
+ADAM - Gradient-based algorithm and its main feature is that can adaptively adjust learning rates for each parameter during training, enabling efficient convergence.~\cite{adam}
+AMSGRAD - A variant of the ADAM algorithm that into decision-making incorporates past gradient, which also results in higher memory consumption.~\cite{amsgrad}
 \subsubsection{Hamiltonian}
 For all the experiments we used a 4-qubit Hamiltonian of a hydrogen molecule. We took it from a paper produced by Miháliková et al.~\cite{mihalikova} and it is defined as follows:
 
