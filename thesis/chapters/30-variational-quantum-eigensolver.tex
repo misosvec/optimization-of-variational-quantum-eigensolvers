@@ -9,7 +9,7 @@ The VQE is a hybrid algorithm that attempts to find eigenvalues of Hamiltonian. 
     \caption{Hybrid algorithm that runs on both quantum and classical computers~\cite{hybrid_alg}}
 \end{figure}
 
-Apart from VQE, there are other algorithms that can solve from eigenvalues. One of them is the quantum phase estimation algorithm (QPE). QPE is purely a quantum algorithm that imposes significant requirements on quantum hardware and that will be not possible in the near future. This problem led to the introduction of VQE. VQE tries to reduce the demands on resources, by shifting part of the work to standard computers.~\cite{fedorov2021vqe}
+Apart from VQE, there are other algorithms that can solve from eigenvalues. One of them is the quantum phase estimation algorithm (QPE). QPE is purely a quantum algorithm that imposes significant requirements on quantum hardware and that will be not possible in the near future. This problem led to the introduction of VQE. VQE tries to reduce the demands on resources, by shifting part of the work to standard computers.~\cite{vqe_method}
 
 In this thesis, we deal with finding the ground state energy of a molecule. Arguably, this is the most prominent use case, but this is not the one and only application of VQE. It can be used for any problem that can be mapped to Hamiltonian expression. For instance, in the area of finance, it can be a portfolio optimization problem.
 
@@ -19,7 +19,7 @@ In quantum mechanics, there is a famous Schrödinger equation ($\hat{H} \Psi = E
 \section{Eigensolver}
 As we indicated above, this algorithm solves for eigenvalues of a given Hamiltonian. Specifically, we are interested in the lowest eigenvalue because that eigenvalue corresponds to the ground state energy. 
 
-Let $\hat{H}$ be our Hamiltonian, $\Psi$ denotes our ansatz with parameters $\theta$. The goal of the VQE algorithm is to find the best set of parameters $\theta$ that can lead to the minimal value of the cost function. Then we can compute the ground state energy using the following formula~\cite{fedorov2021vqe}:
+Let $\hat{H}$ be our Hamiltonian, $\Psi$ denotes our ansatz with parameters $\theta$. The goal of the VQE algorithm is to find the best set of parameters $\theta$ that can lead to the minimal value of the cost function. Then we can compute the ground state energy using the following formula~\cite{vqe_method}:
 \begin{equation} \label{eq:cost-function}
 E = \min\nolimits_{\theta} \frac{\bra{\Psi(\theta)}\hat{H}\ket{\Psi(\theta)}}{\braket{\Psi(\theta)}{\Psi(\theta)}} \text{.}
 \end{equation}
@@ -46,5 +46,5 @@ The idea of gradient-based algorithms is to leverage the gradient to make a step
 
 
 \subsection{Barren plateau}
-Variational quantum algorithms suffer from a common pitfall in the challenge of parameter optimization, the so-called barren plateau problem. The barren plateau is a result of the phenomenon that gradients of the VQE parameters vanish exponentially. This is driven by a number of qubits, trainability, expressibility and other factors.~\cite{fedorov2021vqe} Simply put, we suffer from a barren plateau problem if we find ourselves on a vast ''plane'' and there is nothing in our surroundings. The vicinity is flat and optimization algorithms can become stuck in this plane because they may have difficulties escape this area.
+Variational quantum algorithms suffer from a common pitfall in the challenge of parameter optimization, the so-called barren plateau problem. The barren plateau is a result of the phenomenon that gradients of the VQE parameters vanish exponentially. This is driven by a number of qubits, trainability, expressibility and other factors.~\cite{vqe_method} Simply put, we suffer from a barren plateau problem if we find ourselves on a vast ''plane'' and there is nothing in our surroundings. The vicinity is flat and optimization algorithms can become stuck in this plane because they may have difficulties escape this area.
 \todo{should I cover this topic in more detail?}
