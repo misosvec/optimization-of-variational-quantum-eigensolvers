@@ -12,11 +12,11 @@ The notion of expressibility can be very helpful to get an understanding what is
         \centering
         \begin{minipage}{0.4\linewidth}
             \centering
-            \includegraphics[scale=0.9]{expressibility-hrzrx-circuit.png}
+            \includegraphics[scale=0.9]{expressibility-hrzrx-circuit.pdf}
         \end{minipage}
         \begin{minipage}{0.4\linewidth}
             \centering
-            \includegraphics[scale=0.42]{expressibility-hrzrx-qubit.png}
+            \includegraphics[scale=0.42]{expressibility-hrzrx-qubit.pdf}
         \end{minipage}
         \caption{Ansatz expressibility, 1000 parameters sampled uniformly randomly}
 \end{figure}
@@ -27,11 +27,11 @@ Provided we know that our solution is a real number, we can use a simpler ansatz
     \centering
     \begin{minipage}{0.4\linewidth}
         \centering
-        \includegraphics[scale=0.95]{expressibility-ry-circuit.png}
+        \includegraphics[scale=0.95]{expressibility-ry-circuit.pdf}
     \end{minipage}
     \begin{minipage}{0.4\linewidth}
         \centering
-        \includegraphics[scale=0.42]{expressibility-ry-qubit.png}
+        \includegraphics[scale=0.42]{expressibility-ry-qubit.pdf}
     \end{minipage}
     \caption{Ansatz expressibility, 200 parameters sampled uniformly randomly}
 \end{figure}
@@ -48,19 +48,19 @@ A circuit depth is a measure that says how many ``levels'' of gates a quantum ci
     \centering
     \begin{subfigure}[b]{0.2\textwidth}
         \centering
-        \includegraphics[scale=0.7]{circuit-depth-1.png} 
+        \includegraphics[scale=0.7]{circuit-depth-1.pdf} 
         \caption*{1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.7]{circuit-depth-3.png}
+        \includegraphics[scale=0.7]{circuit-depth-3.pdf}
         \caption*{3}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{circuit-depth-6.png}
+        \includegraphics[width=\textwidth]{circuit-depth-6.pdf}
         \caption*{6}
     \end{subfigure}
        \caption{Circuit depth}
@@ -80,7 +80,7 @@ The structure of HEA consists of layers, each layer consists of rotation gates a
     \includegraphics[width=0.5\textwidth]{hea-structure.png}       
     \caption{Hardware efficient ansatz structure~\cite{img:hea}}     
 \end{figure}
-The main drawback of hardware efficient ansatzes is that they can span a substantial portion of the Hilbert space, often exceeding what is necessary~\cite{holmes2022}. This results in barren plateaus and also when dealing with a large number of parameters classical optimizers face increased challenges in their optimization task. There is ongoing research about ansatzes, there is an article that claims to have trainability guarantees for hardware efficient ansatzes that possess specific properties~\cite{shallow}. Nevertheless, we cannot be certain about that. Other research endeavors attempted to disrupt this theory by introducing a new source of untrainability~\cite{hea-practical}.
+The main drawback of hardware efficient ansatzes is that they can span a substantial portion of the Hilbert space, often exceeding what is necessary~\cite{holmes2022} and that can lead to undesirable problems with trainability. There is ongoing research about ansatzes and also there is an article that claims to have trainability guarantees for hardware efficient ansatzes that possess specific properties~\cite{shallow}. Nevertheless, we cannot be certain about that. Other research endeavors attempted to disrupt this theory by introducing a new source of untrainability~\cite{hea-practical}.
 
 \subsubsection{Qubit topology and transpilation}
 To deepen understanding and foster motivation for a hardware-efficient ansatz, we will explore the specifics of IBM hardware in more detail. IBM has many quantum computers with various qubit counts, topologies, and native gate sets. A qubit topology shows qubit connectivity. Upon observation of the qubit topology depicted in Figure \ref{fig:qubit_topology}, it becomes apparent that certain qubits are disconnected and situated far from one another. One might ask how to implement a two-qubit gate between these qubits. The process is outlined in the IBQ documentation~\cite{transpiler,native_gates}, but in brief, it can be summarized as follows.
@@ -105,7 +105,7 @@ This section will introduce several popular ansatzes categorized by type of enta
 This ansatz entangles each qubit with every other qubit, therefore we can hardly name this ansatz as hardware efficient.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{full-ansatz.png}
+    \includegraphics[width=\linewidth]{ansatz-full.pdf}
     \caption{Full entanglement ansatz, 2 layers, RY rotation gates}
 \end{figure}
 
@@ -113,7 +113,7 @@ This ansatz entangles each qubit with every other qubit, therefore we can hardly
 In this ansatz, each qubit is entangled with the next qubit. 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{linear-ansatz.png}
+    \includegraphics[width=\linewidth]{ansatz-linear.pdf}
     \caption{Linear entanglement ansatz, 2 layers, RY rotation gates}
 \end{figure}
 
@@ -121,7 +121,7 @@ In this ansatz, each qubit is entangled with the next qubit.
 As the name suggests, this is the linear ansatz just in a reversed order. Provided the entangling gates are CNOTs, this ansatz has the same unitary matrix as the full entanglement. 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{reverse-linear-ansatz.png}
+    \includegraphics[width=\linewidth]{ansatz-reverse-linear.pdf}
     \caption{Linear entanglement ansatz, 2 layers, RY rotation gates}
 \end{figure}
 
@@ -129,7 +129,7 @@ As the name suggests, this is the linear ansatz just in a reversed order. Provid
 The entanglement layer consists of two ``levels''. In the first level, qubit $i$ is entangled with qubit $i+1$ for all even values of $i$, and then in the second level qubit $i$ is entangled with qubit $i+1$ for all odd values of $i$. 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{pairwise-ansatz.png}
+    \includegraphics[scale=0.7]{ansatz-pairwise.pdf}
     \caption{Pairwise entanglement ansatz, 2 layers, RY rotation gates}
 \end{figure}
 
@@ -137,7 +137,7 @@ The entanglement layer consists of two ``levels''. In the first level, qubit $i$
 This is an extension of the linear entanglement where the last qubit is also entangled with the first qubit. In case physical qubits are arranged into a circle, it is easy to implement.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{circular-ansatz.png}
+    \includegraphics[width=\linewidth]{ansatz-circular.pdf}
     \caption{Circular entanglement ansatz, 2 layers, RY rotation gates}
 \end{figure}
 
@@ -145,6 +145,6 @@ This is an extension of the linear entanglement where the last qubit is also ent
 SCA entanglement ansatz consists of circular entanglement where the entangling gate connecting the first with the last qubit is shifted by one in every layer. Furthermore, the role of control and target qubits are swapped in every layer (therefore alternating).
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{sca-ansatz.png}
+    \includegraphics[width=\linewidth]{ansatz-sca.pdf}
     \caption{Shifted circular alternating entanglement ansatz, 2 layers, RY rotation gates}
 \end{figure}
