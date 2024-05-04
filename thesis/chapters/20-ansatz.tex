@@ -97,8 +97,9 @@ Moreover, besides connectivity issues, compatibility with the hardware's native 
 
 \subsection{United Coupled Cluster (UCC)}
 Unlike HEA, this type of ansatz does not take into account any hardware constraints. It is a chemistry-inspired ansatz proposed for finding a ground state energy of molecules. Despite it being chemistry-inspired, it is still a problem-agnostic ansatz. While this appears favorable, it suffers from a major drawback. A circuit depth of UCC ansatz grows $O(n^4)$ where $n$ is a number of qubits~\cite{ucc_ansatz}. For larger problems and current NISQ devices, this is not feasible due to noise and decoherence, although there is ongoing research to mitigate this problem.
-  
-\subsection{Popular ansatzes}
+
+\ques{probably popular is not a right word, I would replace that with something else}
+\subsection{Popular ansatzes}\label{sec:ansatzes}
 This section will introduce several popular ansatzes categorized by type of entanglement. All the ansatzes come from IBM Quantum documentation~\cite{twolocal}. 
 
 \subsubsection{Full entanglement}
