@@ -1,0 +1,4 @@
+qiskit
+qiskit-algorithms
+numpy
+pandas

@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 from optimizers import init_optimizers
 from typing import List, Tuple
-from qiskit_algorithms.optimizers import Optimizer, QNSPSA, GSLS
+from qiskit_algorithms.optimizers import Optimizer, QNSPSA
 from qiskit_algorithms import VQE
-from ansatz import Ansatz, get_basic_ansatzes
+from ansatzes import Ansatz, get_basic_ansatzes
 from qiskit.quantum_info import SparsePauliOp
 from qiskit.primitives import Estimator, Sampler
 import time
