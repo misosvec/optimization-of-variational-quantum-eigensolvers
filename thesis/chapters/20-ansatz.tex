@@ -37,9 +37,7 @@ Provided we know that our solution is a real number, we can use a simpler ansatz
 \end{figure}
 
 \section{Trainability}
-The trainability of an ansatz denotes its ability to efficiently optimize its parameters, typically through iterative processes. A major hurdle that can impede the trainability of an ansatz is the barren plateau problem (vast planes in cost function) which we will introduce in the following chapter. Holmes et al.~\cite{holmes2022} claim that trainability and expressibility are inversely related. Furthermore, they claim that highly expressive ansätze are more prone to barren plateaus and therefore are harder to train, however, that does not necessarily mean that inexpressive ansatzes cannot have trainability issues. The priority should be to span only the relevant part of the Hilbert space, ideally only where the solution lies and minimize the number of parameters and gates that can introduce noise. Designing an efficient ansatz involves finding an optimal trade-off between expressibility and trainability~\cite{holmes2022}.
-
-\ques{barren plateau is defined in the next chapter, should I move it somewhere before this trainability? sometimes it is difficult the figure out the right positioning since the topics are interconnected}
+The trainability of an ansatz denotes its ability to efficiently optimize its parameters, typically through iterative processes. A major hurdle that can impede the trainability of an ansatz is a barren plateau problem (vast planes in cost function) which we will introduce in the following chapter. Holmes et al.~\cite{holmes2022} claim that trainability and expressibility are inversely related. Furthermore, they claim that highly expressive ansatzes are more prone to barren plateaus and therefore are harder to train, however, that does not necessarily mean that inexpressive ansatzes cannot have trainability issues. The priority should be to span only the relevant part of the Hilbert space, ideally only where the solution lies and minimize the number of parameters and gates that can introduce noise. Designing an efficient ansatz involves finding an optimal trade-off between expressibility and trainability~\cite{holmes2022}.
 
 \section{Circuit depth}
 A circuit depth is a measure that says how many ``levels'' of gates a quantum circuit contains. Alternatively, we can say it is the longest path in a circuit. It is a way to increase expressibility but at the same time is a way how to introduce more noise into a circuit.
@@ -67,13 +65,10 @@ A circuit depth is a measure that says how many ``levels'' of gates a quantum ci
        \label{fig:circuit-depth}
 \end{figure}
 
-\section{Types of ansatzes}
-There is a plethora of ansatzes, yet we will focus only on the most popular approaches. Broadly we can classify them into two categories, problem-inspired and hardware-inspired. In addition to that, if ansatz leverages a structure of a particular problem, is said to be problem-specific/problem-derived, otherwise it is problem-agnostic/general. 
+\section{Hardware efficient ansatz}
+An ansatz designed with hardware constraints in mind. The goal is to minimize a circuit depth, the number of gates, and the number of entangling gates in such a way it can be easily implemented on real hardware and thereby tries to minimize error, noise and decoherence. The fact that an ansatz is hardware efficient also depends on the hardware used. This aspect will be briefly addressed in the following subsection.
 
-\subsection{Hardware efficient ansatz (HEA)}
-A problem-agnostic ansatz designed with hardware constraints in mind. The goal is to minimize the number of circuit depth, the number of gates, and entangling qubits in such a way it can be easily implemented on real hardware and thereby tries to minimize error, noise and decoherence. The fact whether an ansatz is hardware efficient heavily depends on the hardware we are using. This will be briefly discussed in the next subsection.
-
-The structure of HEA consists of layers, each layer consists of rotation gates and entangling gates. In a single layer, we can add multiple levels of rotations using different gates. The final layer does not contain any entangling gates, only rotation gates. 
+The structure of hardware efficient ansatz (HEA) consists of layers, each layer consists of rotation gates and entangling gates. In a single layer, we can add multiple levels of rotations with different gates. The final layer does not contain any entangling gates, only rotation gates. 
 
 \begin{figure}[H]
     \centering
@@ -83,11 +78,11 @@ The structure of HEA consists of layers, each layer consists of rotation gates a
 The main drawback of hardware efficient ansatzes is that they can span a substantial portion of the Hilbert space, often exceeding what is necessary~\cite{holmes2022} and that can lead to undesirable problems with trainability. There is ongoing research about ansatzes and also there is an article that claims to have trainability guarantees for hardware efficient ansatzes that possess specific properties~\cite{shallow}. Nevertheless, we cannot be certain about that. Other research endeavors attempted to disrupt this theory by introducing a new source of untrainability~\cite{hea-practical}.
 
 \subsubsection{Qubit topology and transpilation}
-To deepen understanding and foster motivation for a hardware-efficient ansatz, we will explore the specifics of IBM hardware in more detail. IBM has many quantum computers with various qubit counts, topologies, and native gate sets. A qubit topology shows qubit connectivity. Upon observation of the qubit topology depicted in Figure \ref{fig:qubit_topology}, it becomes apparent that certain qubits are disconnected and situated far from one another. One might ask how to implement a two-qubit gate between these qubits. The process is outlined in the IBQ documentation~\cite{transpiler,native_gates}, but in brief, it can be summarized as follows.
+To deepen understanding and foster motivation for a hardware efficient ansatz, we will explore the specifics of IBM hardware in more detail. IBM has many quantum computers with various qubit counts, topologies, and native gate sets. A qubit topology shows qubit connectivity. Upon observation of the qubit topology depicted in Figure \ref{fig:qubit_topology}, it becomes apparent that certain qubits are disconnected and situated far from one another. One might ask how to implement a two-qubit gate between these qubits. The process is outlined in the IBQ documentation~\cite{transpiler,native_gates}, but in brief, it can be summarized as follows.
 
 To apply a 2-qubit gate to a quantum circuit between qubits that are not directly connected on a quantum computer, it is necessary to incorporate one or more swap gates into the circuit. These swap gates facilitate the rearrangement of qubit states until they are positioned adjacent to each other on the device gate map. Each swap gate is both a noisy and expensive operation to perform. Determining the minimum number of swap gates needed to align a circuit with a device is crucial. However, finding the optimal swap mapping is challenging as this problem belongs to the NP-hard problems, making it expensive to compute for larger quantum devices. Qiskit defaults to using a stochastic heuristic algorithm to compute a satisfactory swap mapping.
 
-Moreover, besides connectivity issues, compatibility with the hardware's native gate set must be addressed. Each processor family operates with its own set of native gates. By default, these systems only support operations within their respective gate sets. Consequently, every gate in the circuit needs to be translated into elements of this set. This process is called circuit transpilation and Qiskit provides multiple optimization levels The higher the level is, the more difficult it is to compute that but it may result in a more optimal circuit. Fortunately, it is handled automatically by Qiskit so we do not have to worry about it. 
+Moreover, besides connectivity issues, compatibility with the hardware's native gate set must be addressed. Each processor family operates with its own set of native gates. By default, these systems only support operations within their respective gate sets. Consequently, every gate in the circuit needs to be translated into elements of this set. This process is called circuit transpilation and Qiskit provides multiple optimization levels. The higher the level is, the more difficult it is to compute that but it may result in a more optimal circuit. Fortunately, it is handled automatically by Qiskit so we do not have to worry about it. 
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{qubit-topology.png}
@@ -95,20 +90,13 @@ Moreover, besides connectivity issues, compatibility with the hardware's native 
     \label{fig:qubit_topology}
 \end{figure}
 
-\subsection{United Coupled Cluster (UCC)}
-Unlike HEA, this type of ansatz does not take into account any hardware constraints. It is a chemistry-inspired ansatz proposed for finding a ground state energy of molecules. Despite it being chemistry-inspired, it is still a problem-agnostic ansatz. While this appears favorable, it suffers from a major drawback. A circuit depth of UCC ansatz grows $O(n^4)$ where $n$ is a number of qubits~\cite{ucc_ansatz}. For larger problems and current NISQ devices, this is not feasible due to noise and decoherence, although there is ongoing research to mitigate this problem.
+\subsubsection{Alternatives}
+There are multiple types of ansatzes but broadly can be classified into two categories, problem-inspired and hardware-inspired. In addition to that, if ansatz leverages a structure of a particular problem, is said to be problem-specific/problem-derived, otherwise, it is problem-agnostic/general.
 
-\ques{probably popular is not a right word, I would replace that with something else}
-\subsection{Popular ansatzes}\label{sec:ansatzes}
-This section will introduce several popular ansatzes categorized by type of entanglement. All the ansatzes come from IBM Quantum documentation~\cite{twolocal}. 
+One such example of a problem-inspired ansatz is the United Coupled Cluster (UCC) ansatz proposed for finding the ground state energy of molecules. A circuit depth of this ansatz grows $O(n^4)$ where $n$ is the number of qubits~\cite{ucc_ansatz}. This is not viable for larger problems and current NISQ devices. Therefore, problem-agnostic hardware efficient approaches are typically employed.
 
-\subsubsection{Full entanglement}
-This ansatz entangles each qubit with every other qubit, therefore we can hardly name this ansatz as hardware efficient.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{ansatz-full.pdf}
-    \caption{Full entanglement ansatz, 2 layers, RY rotation gates}
-\end{figure}
+\subsection{Commonly used ansatzes}\label{sec:ansatzes}
+This section will introduce several commonly used hardware efficient ansatzes categorized by type of entanglement. All the ansatzes come from IBM Quantum documentation~\cite{twolocal}. 
 
 \subsubsection{Linear entanglement}
 In this ansatz, each qubit is entangled with the next qubit. 
@@ -119,7 +107,7 @@ In this ansatz, each qubit is entangled with the next qubit.
 \end{figure}
 
 \subsubsection{Reverse linear entanglement}
-As the name suggests, this is the linear ansatz just in a reversed order. Provided the entangling gates are CNOTs, this ansatz has the same unitary matrix as the full entanglement. 
+As the name suggests, this is the linear ansatz just in a reversed order.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{ansatz-reverse-linear.pdf}
@@ -148,4 +136,12 @@ SCA entanglement ansatz consists of circular entanglement where the entangling g
     \centering
     \includegraphics[width=\linewidth]{ansatz-sca.pdf}
     \caption{Shifted circular alternating entanglement ansatz, 2 layers, RY rotation gates}
+\end{figure}
+
+\subsubsection{Full entanglement}
+This ansatz entangles each qubit with every other qubit. At first glance it may seem that this ansatz cannot be hardware efficient due to the amount of CNOT gates, however, conceptually it is still considered hardware efficient. In fact, the CNOT gates have minimal impact on the resulting state since there are no rotation gates interleaved with the entangling gates. A block containing only CNOT gates is not particularly useful. Moreover, the circuit depth remains manageable. Provided that the reverse linear ansatz uses CNOT gates as entangling gates, this ansatz has the same unitary matrix as the reverse linear ansatz but with more CNOT gates.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{ansatz-full.pdf}
+    \caption{Full entanglement ansatz, 2 layers, RY rotation gates}
 \end{figure}

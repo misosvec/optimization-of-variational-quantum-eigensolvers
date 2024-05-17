@@ -68,3 +68,7 @@
 \newcommand{\bra}[1]{\langle#1\rvert} % Bra
 \newcommand{\ket}[1]{\lvert#1\rangle} % Ket
 \newcommand{\braket}[2]{\langle#1\vert#2\rangle} % Bra-ket
+
+% Exclude section from TOC but still keep numbering
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}

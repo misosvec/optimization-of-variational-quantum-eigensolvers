@@ -6,7 +6,7 @@ In this chapter, we will introduce all the necessary mathematical and quantum co
 \section{Mathematics of quantum computing}
 In the case of standard computers, boolean algebra is used. Quantum computing leverages the power of linear algebra. In this section, we will introduce concepts from linear algebra and some concepts that are more specific to physics. We heavily rely on definitions from the book Mathematical Methods for Physicists by Arfken et al.~\cite{mmp}.
 
-\subsection*{Eigenvalues and eigenvectors}
+\tocless\subsection{Eigenvalues and eigenvectors}
 Eigenvalues and eigenvectors are some of the most important concepts in linear algebra. The problem of eigenvalues and eigenvectors can be defined by the following equation:
 
 \begin{equation}
@@ -23,29 +23,29 @@ Eigenvalues and eigenvectors are some of the most important concepts in linear a
   \label{fig:eigen}
 \end{figure} 
 
-\subsection*{Complex conjugate}
+\tocless\subsection{Complex conjugate}\noindent
 A complex number consists of real and imaginary parts, where the imaginary unit satisfies the equation $i^2 = -1$. If we have a complex number $z = a + bi$, its complex conjugate is $z^{*} = a - bi$. The imaginary part has just flipped the sign. 
 \begin{equation}\label{eq:complex-conjugate}
 zz^{*} = (a + bi)(a - bi) = a^2 - (bi)^2 = a^2 + b^2
 \end{equation}
 Equation \ref{eq:complex-conjugate} reveals that $zz^{*}$ is a non-negative real number and it enables us to define absolute value as $\sqrt{zz^{*}}$, which is denoted by $\lvert z \rvert$. A complex conjugate can be also denoted as $\bar{z}$.
 
-\subsection*{Adjoint of a matrix}
+\tocless\subsection{Adjoint of a matrix}\noindent
 For matrices with complex elements, the complex conjugate of a matrix is obtained by conjugating all elements of the original matrix. The notation for the complex conjugate of $A$ is $A^*$. The adjoint of a matrix $A$, denoted $A^\dag$ ($A$ dagger), is obtained by both complex conjugating and transposing it. The adjoint of real matrices is just equal to their transpose.
 
-\subsection*{Unitary matrices}
+\tocless\subsection{Unitary matrices}\noindent
 Unitary matrices are matrices that satisfy the property $U^\dag = U^{-1}$, meaning their adjoint equals their inverse. The relationship can be also expressed as follows:
 \begin{equation}
 U U^{\dag} = U^{\dag} U\text{.}
 \end{equation}
 Also, provided that $U$ and $V$ are both unitary, then $UV$ and $VU$ will be unitary as well.
 
-\subsection*{Hermitian matrices}
+\tocless\subsection{Hermitian matrices}\noindent
 A definition of Hermitian matrices builds upon the previous definitions. Hermitian matrices are square matrices that are equal to their adjoint, therefore $H = H^\dag$. Synonymously, they are also called self-adjoint matrices. All real symmetric matrices are Hermitian. It is important to note that if two matrices $A$ and $B$ are Hermitian, there is no guarantee that either $AB$ or $BA$ will also be Hermitian. It is guaranteed that Hermitian matrices have real eigenvalues.
 
-\subsection*{Pauli matrices}\label{sec:pauli-matrices}
+\tocless\subsection{Pauli matrices}\label{sec:pauli-matrices}\noindent
 By Pauli matrices, we mean the set of three $2 \times 2$ complex matrices. They are defined as follows:
-\begin{equation*}
+\begin{equation}
   \sigma_X = \begin{pmatrix}
     0 & 1 \\
     1 & 0
@@ -56,21 +56,21 @@ By Pauli matrices, we mean the set of three $2 \times 2$ complex matrices. They 
     1 & 0 \\
     0 & 1
 \end{pmatrix}\text{.}
-\end{equation*}
+\end{equation}
 These matrices are both Hermitian and unitary. Some literature also includes the identity matrix in the set of Pauli matrices. 
 
-\subsection*{Tensor product}
+\tocless\subsection{Tensor product}\noindent
 The tensor product is an operation that is heavily used in quantum computing. It is a general operation that applies to several mathematical objects, but in this case, we will restrict ourselves to matrices. The version that works for matrices can be referred to as the Kronecker product. Sometimes are these operations used interchangeably since they use the same notation $\otimes$. Essentially, it is a binary operation that combines two matrices into one larger matrix. We multiply each element of the first matrix by the entire second matrix. Mathematically, it is defined as follows:
-\begin{equation*}
+\begin{equation}
   A \otimes B = \begin{pmatrix}
     a_{11}B & a_{12}B & \hdots & a_{1n}B \\
     a_{21}B & a_{22}B & \hdots & a_{2n}B \\
     \vdots & \vdots & \ddots & \vdots \\
     a_{m1}B & a_{m2}B & \hdots & a_{mn}B
   \end{pmatrix}\text{.}
-\end{equation*}
+\end{equation}
 
-\subsection*{Bra-ket notation}
+\tocless\subsection{Bra-ket notation}\noindent
 Bra-ket notation, also known as Dirac notation plays an important role in quantum mechanics. It is a notation for vectors used to describe a quantum state. A ket is a standard column vector whereas a bra is an adjoint of a ket. 
 
 \begin{table}[H]
@@ -91,7 +91,7 @@ Bra-ket notation, also known as Dirac notation plays an important role in quantu
 \end{table}
 
 The main advantage of this notation is that enables us to easily write vector operations such as inner product:
-\begin{equation*}
+\begin{equation}\label{eq:inner-product}
   \braket{\alpha}{\beta} = \begin{pmatrix}
     a_1^* & a_2^* & \hdots & a_n^*
 \end{pmatrix}\begin{pmatrix}
@@ -100,9 +100,9 @@ The main advantage of this notation is that enables us to easily write vector op
     \vdots \\
     b_n
 \end{pmatrix} = \sum_{i=1}^{n} a_i^{*} b_i\text{,}
-\end{equation*}
+\end{equation}
 outer product:
-\begin{equation*}
+\begin{equation}
   \ket{\beta}\bra{\alpha} = \begin{pmatrix}
     b_1 \\
     b_2 \\
@@ -117,38 +117,32 @@ outer product:
     \vdots & \vdots & \ddots & \vdots \\
     b_{n}a_1^* & b_{n}a_2^* & \hdots & b_{n}a_n^*
 \end{pmatrix}\text{,}
-\end{equation*} and tensor product:
-\begin{equation*}
+\end{equation} and tensor product:
+\begin{equation}
   \ket{\alpha} \otimes \ket{\beta} = \ket{\alpha}\ket{\beta} = \ket{\alpha \beta}\text{.}
-\end{equation*}
+\end{equation}
 
-\subsection*{Hilbert space}
-Mostly, we used to work with finite-dimensional vector spaces. Recall that the dimension of vector space is the number of vectors required to form a basis. In quantum computing, we work with infinite-dimensional vector spaces over field $\mathbb{C}$. Virtually, Hilbert space $\mathcal{H}$ is a standard vector space over $\mathbb{C}$, but in addition to that it satisfies the property of completeness:
-\begin{equation*}
-  \sum_{i=0}^{\infty}\vert a_i \vert \in \mathcal{H}\text{.}
-\end{equation*}
-Simply put, each Cauchy sequence of vectors converges to a vector that lies in Hilbert space $\mathcal{H}$.
-
-\ques{Neviem, ta definicia sa mi moc nepozdava. Je to pochopitelne?}
+\tocless\subsection{Hilbert space}\noindent
+In simple terms, it is a finite-dimensional complex vector space equipped with an inner product as defined in equation~\ref{eq:inner-product}. Although there are more detailed definitions of Hilbert space that extend to infinite-dimensional vector spaces, we will adhere to this simple definition since our work deals exclusively with finite-dimensional vector spaces.
 
 \section{Introduction to quantum computing}
 The standard computers as we know them, for their functioning use laws of standard mechanics. Quantum computers, on the other hand, use the laws of quantum mechanics. Quantum mechanics describes the behavior of particles at the microscopic level, whereas standard mechanics deals with macroscopic objects. The objective of this section is to highlight the most important concept and provide at least a brief idea of quantum computing. The main source of information for this section is the book Quantum Computation and Quantum Information by Michael A. Nielsen and Isaac L. Chuang~\cite{qc}.
 
-\subsection*{Qubit}
+\tocless\subsection{Qubit}\noindent
 A qubit is an abbreviation of a quantum bit. It is a bit counterpart in quantum computing, thus a basic unit of information in quantum computers. Classical bits can hold only two values, either 0 or 1. However, qubits are more complex.
 
 Mathematically, a qubit is represented by a vector in a two-dimensional complex vector space. Basis vectors of this vector space:
-\begin{equation*}
+\begin{equation}
 \ket{0} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\text{ and }\ket{1} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
-\end{equation*}
+\end{equation}
 are also known as computational basis states and they are analogous to classical bits 0 and 1. In addition, qubits can be in a so-called superposition of states. This means that a state of a qubit can be a linear combination of states $\ket{0}$ and $\ket{1}$:
-\begin{equation*}
+\begin{equation}
 \ket{\psi} = \alpha \ket{0} + \beta \ket{1}\text{, where } \alpha,\beta \in \mathbb{C}\text{, and } \lvert \alpha \rvert^2 + \lvert \beta \rvert^2 = 1\text{,}
-\end{equation*}
+\end{equation}
 therefore there are infinitely many states that qubit can be in. In case we consider two qubits, the basis vectors of this four-dimensional vector space are $\ket{00}$, $\ket{01}$, $\ket{10}$, and $\ket{11}$. Then the superposition looks as follows:
-\begin{equation*}
+\begin{equation}
  \ket{\psi} = \alpha \ket{00} + \beta \ket{01} + \gamma \ket{10} + \delta \ket{11}\text{,}
-\end{equation*}
+\end{equation}
 where the sum of the squared coefficients is equal to 1 as well. 
 
 All these vectors and complex numbers may be difficult to understand and imagine. For simplification, we can leverage the Bloch sphere to visualize the state of a qubit. It is a unit sphere named after physicist Felix Bloch. For the sake of simplicity, we will not go into the details, but if we use the properties of a quantum state, there is a possibility to rewrite it cleverly, such that a quantum state can be visualized as a vector in a Bloch sphere.
@@ -162,7 +156,7 @@ All these vectors and complex numbers may be difficult to understand and imagine
 
 This was just a mathematical representation, however, in the real world physical qubits can be realized in different ways. There is a plethora of options but the most prominent ones used by leading companies are superconducting qubits and trapped ions (an atom that is not neutral). Also, we cannot omit photon-based qubits that can succeed as well.  
 
-\subsection*{Measurements}
+\tocless\subsection{Measurements}\noindent
 Measurement is an operation that enables us to find out the state of a qubit, however, this operation does not work as most of us would expect. When a qubit is measured, it yields either outcome $\ket{0}$, with a probability of $\lvert \alpha \rvert^2$, or outcome $\ket{1}$, with a probability of $\lvert \beta \rvert^2$. We are working with probabilities, so the normalization condition $\lvert \alpha \rvert^2 + \lvert \beta \rvert^2 = 1$, should make more sense now. Measurement is a destructive operation, upon first measurement, the state of a qubit is collapsed to either $\ket{0}$ or $\ket{1}$, and any subsequent measurements will yield the same result. We cannot recover the original state of a qubit after measurement. Table~\ref{tab:measurements-states} shows canonical measurements on the x, y and z axes, however, there are infinitely many ways to measure a qubit, depending on how we rotate it.
 
 \begin{table}[H]
@@ -197,15 +191,15 @@ Most (if not all) contemporary quantum computers perform measurements only on a 
   \label{tab:measurements-conversion}
 \end{table}
 
-\subsection*{Quantum gates}
+\tocless\subsection{Quantum gates}\noindent
 Thus far, our focus has been on examining the properties of qubits, leaving the question of qubit manipulation unanswered. This section delves into the fundamental quantum gates, accompanied by visual representations to enhance comprehension.
 
 Quantum gates are the quantum equivalent of classical logic gates. In contrast to logic gates in classical computing, quantum gates are represented by matrices. The only property that a matrix must adhere to is unitarity. There are infinitely many unitary matrices, therefore we have infinitely many quantum gates.
 
 Another specialty of quantum gates or quantum computation is their reversibility. This means that from the output of the gate, we can always determine the input. This is not the case for logic gates. For instance, the \textit{AND} gate is not reversible. From the output, we cannot determine the input.
 
-\subsubsection*{X, Y, Z gates}
-Gates X, Y, and Z are the most fundamental single-qubit gates. All three gates perform rotation by 180 degrees of the Bloch sphere \ques{I would say rotation of a state}, the X gate around the x-axis, the Y gate around the y-axis, and the Z gate around the z-axis. They are also known as bit-flip, phase-flip, and bit-phase-flip gates, respectively. Parametrized equivalents of these gates are called RX, RY, and RZ. These gates are used to rotate the state of a qubit by a given angle.
+\tocless\subsection{X, Y, Z gates}\noindent
+Gates X, Y, and Z are the most fundamental single-qubit gates. All three gates perform rotation of a state by 180 degrees, the X gate around the x-axis, the Y gate around the y-axis, and the Z gate around the z-axis. They are also known as bit-flip, phase-flip, and bit-phase-flip gates, respectively. Parametrized equivalents of these gates are called RX, RY, and RZ. These gates are used to rotate the state of a qubit by a given angle.
 
 \begin{table}[H]
   \centering
@@ -241,7 +235,7 @@ Gates X, Y, and Z are the most fundamental single-qubit gates. All three gates p
 \end{table}
 Note that the initial state of the Z-gate differs from the initial state of the X and Y gates. If we had started from the state $\ket{0}$, we would have not seen any change.
 
-\subsubsection*{Hadamard gate}
+\tocless\subsection{Hadamard gate}\noindent
 The Hadamard operation can be thought of as a two-step process. It is a rotation of the sphere around the y-axis by 90 degrees and then subsequent rotation around the x-axis by 180 degrees. If we apply Hadamard gate on a qubit in the state $\ket{0}$, we get a qubit in an equal superposition of states $\ket{0}$ and $\ket{1}$.
 \begin{figure}[H]
     \centering
@@ -259,7 +253,7 @@ The Hadamard operation can be thought of as a two-step process. It is a rotation
     \caption{Hadamard gate representation}
 \end{figure}
 
-\subsubsection*{Controlled-NOT gate} 
+\tocless\subsection{Controlled-NOT gate}\noindent
 Controlled-NOT (CNOT) gate operates on two input qubits, known as the control qubit and the target qubit. The action of the gate may be described as follows. If the control qubit is set to state $\ket{0}$, then the target qubit remains untouched. Conversely, if the control qubit is set to state $\ket{1}$, then the target qubit is flipped.
 
 \begin{figure}[H]
@@ -280,7 +274,7 @@ Controlled-NOT (CNOT) gate operates on two input qubits, known as the control qu
   \caption{CNOT gate representation}
 \end{figure}
 
-\subsection*{Quantum entanglement}
+\tocless\subsection{Quantum entanglement}\noindent
 Apart from superposition, quantum entanglement is another quantum phenomenon that gives us an advantage over classical computers. When qubits are entangled we mean that they are somehow bound together and they are dependent. Altering the state of one qubit will immediately alter the state of the other qubit predictably. In the below example, we will demonstrate the most simple entangled state, also known as the Bell state.
 
 \begin{figure}[H]
@@ -309,8 +303,13 @@ Apart from superposition, quantum entanglement is another quantum phenomenon tha
 
 \noindent From the above example, we can see that the qubits are correlated. This particular state is a superposition only of two states $\ket{00}$ and $\ket{11}$, without entanglement we would have to consider a superposition of four states $\ket{00}$, $\ket{01}$, $\ket{10}$, and $\ket{11}$. If the first qubit is measured to be in state $\ket{0}$, then the second one will also be in state $\ket{0}$. The same applies to state $\ket{1}$.
 
-\subsection*{Noisy Intermediate-Scale Quantum (NISQ) computers}
-In today's world, quantum computers still suffer from several problems, namely the following ones.
+\tocless\subsection{Quantum simulation}
+The introduction above does not explicitly highlight the capabilities of quantum computers. We will try to illustrate the advantage of quantum computers in this simple example from Quantum Computation and Quantum Information book by Michael A. Nielsen and Isaac L. Chuang~\cite{qc}.
+
+Suppose we have a system containing 50 qubits. To describe a state of such a system requires $2^{50} \approx 10^{15}$ complex amplitudes. If the amplitudes are stored in 128 bits of precision, then it requires 256 bits or 32 bytes to store each amplitude. At total $32 \times 10^{15}$ is about $32$ thousand of terabytes and this amount hits the limits of current supercomputers. It is important to realize that with each additional qubit, the memory requirements are doubled. Basically, in quantum computers, we can represent the states more efficiently.
+
+\section{Noisy Intermediate-Scale Quantum computers}
+So far, we have covered the very fundamentals of quantum computing and briefly outlined their advantage. However, in today's world, quantum computers still suffer from several problems, namely the following ones.
 
 \subsubsection{Scalability}
 The more qubits we have, the bigger instances of problems we can solve. However, with an increasing number of qubits and a number of gates we introduce errors into quantum computation. The gates themselves, especially the entangling ones, possess a certain probability that the outcome of the gate will result in an error. Also, qubit connectivity goes hand in hand with the scalability. It is not very rational to have many qubits if they are not connected and we cannot use multiqubit gates on them.
@@ -324,12 +323,17 @@ Theoretically, we always consider so-called logical qubits that do not have any 
 \paragraph{}
 Quantum computers that match these characteristics are called noisy intermediate-scale quantum (NISQ) computers. These characteristics and the term NISQ were introduced by John Preskill~\cite{nisq} and its meaning is the following. The term ``noisy'' refers to all the noise that quantum computers currently suffer from. The noise will significantly constrain the capabilities of quantum computers in the foreseeable future. ``Intermediate-scale'' denotes the quantum computers expected to emerge in the coming years, featuring a qubit count ranging from 50 to a few hundred. 
 
+\section{Qiskit}
+This section describes a solution that we use for programming quantum computers and working with quantum algorithms.
+
+Do not confuse programming a quantum computer with standard high-level programming as we know it from classical computers, we are not there yet. The programming of quantum computers is more like programming in assembly language. A thorough knowledge of computer's hardware and architecture is crucial in assembly language programming, as it involves the manipulation of hardware through the use of low-level instructions. A similar principle is applied here, qubits are manipulated using quantum gates. For this purpose, we decided to go with an open-source Qiskit (Quantum Information Science Kit)~\cite{qiskit} library for Python backed by IBM.
+
+There are also other alternatives like Cirq (by Google)~\cite{cirq}, Pennylane (by Xanadu)~\cite{pennylane}, Q\# (by Microsoft)~\cite{qsharp}, Sliq (by ETH Zürich)~\cite{sliq}, and many more. The reason why we decided on Qiskit is that it serves our purpose and is far ahead of its competitors. Competitors offer nowhere near what Qiskit offers. It is the most popular quantum computing library, it provides plenty of learning resources, tutorials, videos, and as it is open source there is a big community around it. IBM has built an entire ecosystem around it \cite{qiskit_ecosystem} with libraries for quantum machine learning, chemistry, finance, and many more. The 7-year work of IBM culminated in the middle of February 2024, when they released version 1.0.0 of Qiskit. Even though Qiskit is mainly developed by IBM, it is not limited to IBM's quantum computers. It can support the hardware of other companies through additional packages.
+
 \section{Ground state energy}
-Before getting into the ground state energy, let's revisit an atom first. Atoms are the smallest building blocks of matter~\cite{chemistry}. They are composed of 3 subatomic particles, protons, neutrons, and electrons. Protons and neutrons are located within the nucleus of the atom. As their names suggest, protons have a positive electrical charge, while neutrons are electrically neutral. Electrons have a negative electrical charge. Atoms themselves are neutral, so the number of protons must be equal to the number of electrons. Electrons are attracted to the protons in the nucleus by the electrostatic force that exists between particles of opposite electrical charge.
+This section draws inspiration from the book Chemistry: The Central Science by Brown et al.~\cite{chemistry}. Prior to delving into the ground state energy, let's revisit an atom first. Atoms are the smallest building blocks of matter. They are composed of 3 subatomic particles, protons, neutrons, and electrons. Protons and neutrons are located within the nucleus of the atom. As their names suggest, protons have a positive electrical charge, while neutrons are electrically neutral. Electrons have a negative electrical charge. Atoms themselves are neutral, so the number of protons must be equal to the number of electrons. Electrons are attracted to the protons in the nucleus by the electrostatic force that exists between particles of opposite electrical charge.
 
-Electrons are organized into orbitals, each with its own characteristic shape and energy level~\cite{chemistry}. An electron has the ability to transition between orbitals by either absorbing or emitting photons with energy precisely matching the difference in energy between the two orbits. In order for the electron to transition to a higher-energy state, it must absorb energy. Conversely, energy is emitted when the electron transitions to a lower-energy state. The lowest-energy state is also known as the ground state and higher-energy states are called excited states. We will measure this energy in the Hartree (Ha) units. Hartree is a unit of energy in the atomic units system~\cite{hartree}.
-
-\ques{Oba odseky su parafrazovane z tej chemickej knihy. Nie som uplne spokojny ako to je vyznacene, asi nie je uplne jasne, ze ta parafraza pokracuje aj po vete v ktorej sa uviedla referencia. Ako by som to mohol zlepsit?}
+Electrons are organized into orbitals, each with its own characteristic shape and energy level. An electron has the ability to transition between orbitals by either absorbing or emitting photons with energy precisely matching the difference in energy between the two orbits. In order for the electron to transition to a higher-energy state, it must absorb energy. Conversely, energy is emitted when the electron transitions to a lower-energy state. The lowest-energy state is also known as the ground state and higher-energy states are called excited states. We will measure this energy in the Hartree (Ha) units. Hartree is a unit of energy in the atomic units system~\cite{hartree}.
 
 \begin{figure}[H]
     \centering
@@ -339,9 +343,9 @@ Electrons are organized into orbitals, each with its own characteristic shape an
 
 \section{Hamiltonian}
 The Hamiltonian defines the total energy of a physical system. Many different forms of Hamiltonians exist in physics and chemistry, but for us, it is just a matrix. Once a Hamiltonian is constructed, it must be translated into operators that can be directly measured on a quantum computer. The representation for quantum computers looks as follows~\cite{ibm_hamiltonian}:
-\begin{equation*}
+\begin{equation}
 \hat{H} = \sum_{i=1}^{m}c_i\sigma_i \text{, } \sigma_i \in \{I, X, Y, Z\}^{\otimes n}\text{, } c_i \in \mathbb{R} \text{, }
-\end{equation*}
+\end{equation}
 where $I$ is an identity matrix and $X$, $Y$, $Z$ are Pauli matrices which we discussed in the section~\ref{sec:pauli-matrices}.
 
 The Pauli matrices represent measurements. For instance, the expression $c_{1}Z_{0}X_{1}Y_{2}$ means that we measure qubit zero on the z-axis, qubit one on the x-axis, qubit two on the y-axis, and then we will multiply the results together with the coefficient $c_{1}$. Sometimes this Hamiltonian representation is referred to as a sum of Pauli strings. A ground state energy is a real number therefore this Hamiltonian representation has real eigenvalues, this fact concludes that Hamiltonian is a Hermitian matrix.
