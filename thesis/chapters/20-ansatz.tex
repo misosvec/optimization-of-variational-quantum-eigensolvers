@@ -1,12 +1,12 @@
 \chapter{Ansatz}\label{ch:ansatz}
-Before we delve into details let us preface this section with an etymology of the word ansatz. An ansatz is a term borrowed from German (plural ansätze), referring to an educated guess, an initial point, or an additional assumption made to facilitate solving a problem, which may later be verified based on the results obtained~\cite{ansatz_etymology}.
+Before we delve into details, let us preface this section with an etymology of the word ansatz. An ansatz is a term borrowed from German (plural ansätze), referring to an educated guess, an initial point, or an additional assumption made to facilitate solving a problem, which may later be verified based on the results obtained~\cite{ansatz_etymology}.
 
 In the context of quantum computing, an ansatz refers to a parametrized quantum circuit, which is comprised of quantum gates and some of them are parametrized. Ansatzes are often used in variational algorithms where the circuit parameters are optimized by classical computers.
 
-In this chapter, we will discuss the role of the ansatz, its properties, types, and introduce several popular examples. Moreover, we will address the challenges that can impede the design of an ansatz.
+In this chapter, we will discuss the role of the ansatz, its properties, types, and introduce several commonly used ansatzes. Moreover, we will address the challenges that can impede the design of an ansatz.
 
 \section{Expressibility}
-The notion of expressibility can be very helpful to get an understanding what is the role of the ansatz. Expressibility says how much of the Hilbert space can be covered by our ansatz. The following images should provide a clear explanation of this idea.
+The notion of expressibility can be very helpful to get an understanding what is the role of an ansatz. Expressibility tells how much of the Hilbert space can be covered by the ansatz. The following figures should provide a clear explanation of this idea.
 
 \begin{figure}[H]
         \centering
@@ -21,7 +21,7 @@ The notion of expressibility can be very helpful to get an understanding what is
         \caption{Ansatz expressibility, 1000 parameters sampled uniformly randomly}
 \end{figure}
 
-Provided we know that our solution is a real number, we can use a simpler ansatz that covers only a real part of the Hilbert space. Additional gates would introduce more noise into our circuit and the more parameters we have, the more difficult it is to optimize them.
+Provided we know that our solution is a real number, we can use a simpler ansatz that covers only the real part of the Hilbert space. Additional gates would introduce more noise into a circuit and the more parameters we have, the more difficult it is to optimize them.
 
 \begin{figure}[H]
     \centering
@@ -37,10 +37,10 @@ Provided we know that our solution is a real number, we can use a simpler ansatz
 \end{figure}
 
 \section{Trainability}
-The trainability of an ansatz denotes its ability to efficiently optimize its parameters, typically through iterative processes. A major hurdle that can impede the trainability of an ansatz is a barren plateau problem (vast planes in cost function) which we will introduce in the following chapter. Holmes et al.~\cite{holmes2022} claim that trainability and expressibility are inversely related. Furthermore, they claim that highly expressive ansatzes are more prone to barren plateaus and therefore are harder to train, however, that does not necessarily mean that inexpressive ansatzes cannot have trainability issues. The priority should be to span only the relevant part of the Hilbert space, ideally only where the solution lies and minimize the number of parameters and gates that can introduce noise. Designing an efficient ansatz involves finding an optimal trade-off between expressibility and trainability~\cite{holmes2022}.
+The trainability of an ansatz denotes its ability to efficiently optimize its parameters, typically through iterative processes. The major hurdle that can impede the trainability of an ansatz is a barren plateau problem (vast planes in cost function) which we will introduce in the following chapter. Holmes et al.~\cite{holmes2022} claim that trainability and expressibility are inversely related. Furthermore, they claim that highly expressive ansatzes are more prone to barren plateaus and therefore are harder to train, however, that does not necessarily mean that inexpressive ansatzes cannot have trainability issues. The priority should be to span only the relevant part of the Hilbert space, ideally only where the solution lies and minimize the number of parameters and gates that can introduce noise. Designing an efficient ansatz involves finding an optimal trade-off between expressibility and trainability~\cite{holmes2022}.
 
 \section{Circuit depth}
-A circuit depth is a measure that says how many ``levels'' of gates a quantum circuit contains. Alternatively, we can say it is the longest path in a circuit. It is a way to increase expressibility but at the same time is a way how to introduce more noise into a circuit.
+The depth of a circuit is a measure that expresses how many ``levels'' of gates a quantum circuit contains. Alternatively, it is the longest path in a circuit. It is a way to increase expressibility but at the same time a way how to introduce more noise into a circuit.
 
 \begin{figure}[H]
     \centering
@@ -66,9 +66,9 @@ A circuit depth is a measure that says how many ``levels'' of gates a quantum ci
 \end{figure}
 
 \section{Hardware efficient ansatz}
-An ansatz designed with hardware constraints in mind. The goal is to minimize a circuit depth, the number of gates, and the number of entangling gates in such a way it can be easily implemented on real hardware and thereby tries to minimize error, noise and decoherence. The fact that an ansatz is hardware efficient also depends on the hardware used. This aspect will be briefly addressed in the following subsection.
+An ansatz designed with hardware constraints in mind. The goal is to minimize a circuit depth, the number of gates, and the number of entangling gates in such a way it can be easily implemented on real hardware and thereby tries to minimize error, noise, and decoherence. The fact that an ansatz is hardware efficient also depends on the hardware used. This aspect will be briefly addressed in the following subsection.
 
-The structure of hardware efficient ansatz (HEA) consists of layers, each layer consists of rotation gates and entangling gates. In a single layer, we can add multiple levels of rotations with different gates. The final layer does not contain any entangling gates, only rotation gates. 
+The structure of hardware efficient ansatz (HEA) consists of layers, each layer consists of rotation gates and entangling gates. A single layer can contain multiple levels of rotations with various gates. The final layer does not contain any entangling gates, only rotation gates. 
 
 \begin{figure}[H]
     \centering
@@ -78,11 +78,11 @@ The structure of hardware efficient ansatz (HEA) consists of layers, each layer 
 The main drawback of hardware efficient ansatzes is that they can span a substantial portion of the Hilbert space, often exceeding what is necessary~\cite{holmes2022} and that can lead to undesirable problems with trainability. There is ongoing research about ansatzes and also there is an article that claims to have trainability guarantees for hardware efficient ansatzes that possess specific properties~\cite{shallow}. Nevertheless, we cannot be certain about that. Other research endeavors attempted to disrupt this theory by introducing a new source of untrainability~\cite{hea-practical}.
 
 \subsubsection{Qubit topology and transpilation}
-To deepen understanding and foster motivation for a hardware efficient ansatz, we will explore the specifics of IBM hardware in more detail. IBM has many quantum computers with various qubit counts, topologies, and native gate sets. A qubit topology shows qubit connectivity. Upon observation of the qubit topology depicted in Figure \ref{fig:qubit_topology}, it becomes apparent that certain qubits are disconnected and situated far from one another. One might ask how to implement a two-qubit gate between these qubits. The process is outlined in the IBQ documentation~\cite{transpiler,native_gates}, but in brief, it can be summarized as follows.
+To deepen understanding and foster motivation of hardware efficient ansatzes, we will explore specifics of IBM hardware in more detail. IBM has many quantum computers with various qubit counts, topologies, and native gate sets. A qubit topology shows qubit connectivity. Upon observation of the qubit topology depicted in Figure \ref{fig:qubit_topology}, it becomes apparent that certain qubits are disconnected and situated far from one another. One might ask how to implement a two-qubit gate between these qubits. The process is outlined in the IBQ documentation~\cite{transpiler,native_gates}, but in brief, it can be summarized as follows.
 
-To apply a 2-qubit gate to a quantum circuit between qubits that are not directly connected on a quantum computer, it is necessary to incorporate one or more swap gates into the circuit. These swap gates facilitate the rearrangement of qubit states until they are positioned adjacent to each other on the device gate map. Each swap gate is both a noisy and expensive operation to perform. Determining the minimum number of swap gates needed to align a circuit with a device is crucial. However, finding the optimal swap mapping is challenging as this problem belongs to the NP-hard problems, making it expensive to compute for larger quantum devices. Qiskit defaults to using a stochastic heuristic algorithm to compute a satisfactory swap mapping.
+To apply a 2-qubit gate to a quantum circuit between qubits that are not directly connected on a quantum computer, it is necessary to incorporate one or more swap gates into a circuit. These swap gates facilitate the rearrangement of qubit states until they are positioned adjacent to each other on a device gate map. Each swap gate is both a noisy and expensive operation to perform. Determining the minimum number of swap gates needed to align a circuit with a device is crucial. However, finding the optimal swap mapping is challenging as this problem belongs to the NP-hard problems, making it expensive to compute for larger quantum devices. Qiskit defaults to using a stochastic heuristic algorithm to compute a satisfactory swap mapping.
 
-Moreover, besides connectivity issues, compatibility with the hardware's native gate set must be addressed. Each processor family operates with its own set of native gates. By default, these systems only support operations within their respective gate sets. Consequently, every gate in the circuit needs to be translated into elements of this set. This process is called circuit transpilation and Qiskit provides multiple optimization levels. The higher the level is, the more difficult it is to compute that but it may result in a more optimal circuit. Fortunately, it is handled automatically by Qiskit so we do not have to worry about it. 
+Moreover, besides connectivity issues, compatibility with the hardware's native gate set must be addressed. Each processor family operates with its own set of native gates. By default, these systems only support operations within their respective gate sets. Consequently, every gate in the circuit needs to be translated into elements of this set. This process is called circuit transpilation and Qiskit provides multiple optimization levels. The higher the level is, the more difficult it is to compute that and it may result in a more optimal circuit. Fortunately, it is handled automatically by Qiskit so users do not have to worry about it. 
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{qubit-topology.png}
@@ -91,9 +91,9 @@ Moreover, besides connectivity issues, compatibility with the hardware's native 
 \end{figure}
 
 \subsubsection{Alternatives}
-There are multiple types of ansatzes but broadly can be classified into two categories, problem-inspired and hardware-inspired. In addition to that, if ansatz leverages a structure of a particular problem, is said to be problem-specific/problem-derived, otherwise, it is problem-agnostic/general.
+There are multiple types of ansatzes and broadly can be classified into two categories, problem-inspired and hardware-inspired. In addition to that, if ansatz leverages a structure of a particular problem, is said to be problem-specific/problem-derived, otherwise, it is problem-agnostic/general.
 
-One such example of a problem-inspired ansatz is the United Coupled Cluster (UCC) ansatz proposed for finding the ground state energy of molecules. A circuit depth of this ansatz grows $O(n^4)$ where $n$ is the number of qubits~\cite{ucc_ansatz}. This is not viable for larger problems and current NISQ devices. Therefore, problem-agnostic hardware efficient approaches are typically employed.
+One such example of a problem-inspired ansatz is the Unitary Coupled Cluster (UCC) ansatz proposed for finding the ground state energy of molecules. A circuit depth of this ansatz grows $O(n^4)$, where $n$ is the number of qubits~\cite{ucc_ansatz}. This is not viable for larger problems and current NISQ devices. Therefore, problem-agnostic hardware efficient approaches are typically employed.
 
 \subsection{Commonly used ansatzes}\label{sec:ansatzes}
 This section will introduce several commonly used hardware efficient ansatzes categorized by type of entanglement. All the ansatzes come from IBM Quantum documentation~\cite{twolocal}. 
@@ -107,11 +107,11 @@ In this ansatz, each qubit is entangled with the next qubit.
 \end{figure}
 
 \subsubsection{Reverse linear entanglement}
-As the name suggests, this is the linear ansatz just in a reversed order.
+As the name suggests, this is the linear ansatz with a reversed order of entangling gates.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{ansatz-reverse-linear.pdf}
-    \caption{Linear entanglement ansatz, 2 layers, RY rotation gates}
+    \caption{Reverse linear entanglement ansatz, 2 layers, RY rotation gates}
 \end{figure}
 
 \subsubsection{Pairwise entanglement}
