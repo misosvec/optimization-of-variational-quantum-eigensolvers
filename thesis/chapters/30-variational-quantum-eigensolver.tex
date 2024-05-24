@@ -34,7 +34,7 @@ E = \min\nolimits_{\theta} \frac{\bra{0}U(\theta)^\dag \hat{H} U(\theta) \ket{0}
     \caption{VQE input and output scheme}
 \end{figure}
 
-One might question why there is a need for a quantum computer to solve for eigenvalues when a classical computer can do it in polynomial time. This is true but if the matrix size is exponentially large, the problem becomes untractable for classical computers and here quantum computers come into play. In essence, the VQE benefits from the fact that a matrix of size $2^n \times 2^n$ can be encoded into a quantum computer using $n$ qubits, therefore the number of qubits grows $O(poly(n))$. \ques{is this correct reasoning?}
+One might question why there is a need for a quantum computer to solve for eigenvalues when a classical computer can do it in polynomial time. The advantage of the VQE follows from the fact that if Hamiltonian is defined on $n$ qubits, that is still $O(n)$ space complexity for quantum computers. For classical computers, it is $O(exp(n))$ space complexity and that can be infeasible.
 
 \section{Optimization algorithms}
 Optimization algorithms, in short known as optimizers, are algorithms that take a function as an input and try to find the parameters that can lead to a minimal/maximal value of the function. In our scenario, an optimizer tries to find angles to function~\ref{eq:cost-function} defined in the previous section. There is a plethora of optimizers and broadly can be divided into two types, gradient-based and gradient-free.
