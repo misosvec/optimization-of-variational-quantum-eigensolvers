@@ -1,5 +1,3 @@
-
-*.pdf
 .DS_Store
 thesis/out/*
 thesis/attachments/*
