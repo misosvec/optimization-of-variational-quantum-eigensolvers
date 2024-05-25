@@ -128,5 +128,4 @@ if __name__ == '__main__':
                                    'is_bounds_ignored',
                                    'energy_convergence'])
         df.to_csv('data.csv')
-        end = time.time()
-        print(f'elapsed time = {end-start}')
+        print(f'elapsed time = {time.time()-start}')
